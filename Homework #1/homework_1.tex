@@ -1,0 +1,272 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{kbordermatrix}
+
+\usepackage{graphicx}
+
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+
+
+\begin{document}
+
+\title{Dynamical Systems: Homework 1}
+
+\author{Chris Hayduk}
+\date{September 15, 2020}
+
+\maketitle
+
+\begin{problem}{1}
+\end{problem}
+
+The following are definitions:
+\begin{enumerate}[label=(\alph*)]
+\item $(X, d)$ is a metric space if
+\begin{enumerate}[(i)]
+\item $X \neq \emptyset$
+\item $d: X \times X \to \mathbb{R}_0^+$
+\item $d(x, y) = 0 \iff x = y$
+\item $d(x, y) = d(y, x) \; \forall \; x, y \in X$
+\item $d(x, y) \leq d(x, z) + d(z, y) \; \forall \; x, y, z \in X$
+\end{enumerate}
+
+\item A metric space $(X, d)$ is a complete metric space if every Cauchy sequence in $X$ converges to a limit in $X$.
+
+\item The topology $\tau = \tau(d)$ induced on $X$ by $d$ is the set $\tau = \{U \subset X: U \; \text{open}\}$. It has the following properties:
+\begin{enumerate}[(i)]
+\item $\emptyset, X \in \tau$
+\item if $U_i, \cdots, U_{\ell} \in \tau$, then $U_1 \cap \cdots \cap U_{\ell} \in \tau$
+\item if $(U_{\alpha})_{\alpha \in I}$ is a family of open sets, then $\cup_{\alpha \in I} U_{\alpha}$ is open, ie., is in $\tau$
+\end{enumerate}
+
+\item A metric space $(X, d)$ is compact if for every open cover of $X$ there exists a finite subcover.
+
+\end{enumerate}
+
+\begin{problem}{2}
+\end{problem}
+
+We have that,
+\begin{align*}
+\Sigma = \Sigma_b = \{X = (x_k)_{k = -\infty}^{\infty}: x_k \in \{0, \cdots, b - 1\}\}
+\end{align*}
+
+and,
+\begin{align*}
+d(x,y) = d_{\theta}(x,y) = \begin{cases*}
+      0 & \text{if} \; x = y \\
+      \theta^{\min\{|k|: x_k \neq y_k\}} &
+    \end{cases*}
+\end{align*}
+
+where $0 < \theta < 1$
+
+\newpage
+We use these definitions in the following problems,
+\begin{enumerate}[label=(\alph*)]
+\item We need to show that $(\Sigma, d)$ satisfies the properties of a metric space as described in 1a.\\
+
+We know that $\Sigma \neq \emptyset$ because $(x_k) = \{0, 0, 0, 0, \cdots \} \in \Sigma$. From the definition of $d$ above, we also have that $d: \Sigma \times \Sigma \to \mathbb{R}^+_0$.\\
+
+Now suppose $x \neq y$ and suppose $d(x, y) = \theta^{\min\{|k|: x_k \neq y_k\}} = 0$. Let $k_0 = \min\{|k|: x_k \neq y_k\}$. Then,
+\begin{align*}
+&\theta^{k_0} = 0\\
+\implies &\theta = 0
+\end{align*}
+
+However, we know $0 < \theta < 1$. Hence, we have a contradiction and thus $d(x,y) > 0$ if $x \neq y$. Thus, $d(x, y) = 0 \iff x = y$.\\
+
+Now let $x, y \in \Sigma$. Suppose $x = y$. Then clearly $d(x, y) = 0 = d(y, x)$. Now suppose $x \neq y$. Then,
+\begin{align*}
+d(x, y) &= \theta^{\min\{|k|: x_k \neq y_k\}}
+\end{align*}
+
+and 
+\begin{align*}
+d(y, x) &= \theta^{\min\{|k|: y_k \neq x_k\}}
+\end{align*}
+
+Note that $x_k = y_k \iff y_k = x_k$ and $x_k \neq y_k \iff y_k \neq x_k$.\\
+
+Hence, we can rewrite $d(y, x)$ as
+\begin{align*}
+d(y, x) &= \theta^{\min\{|k|: x_k \neq y_k\}} = d(x, y)
+\end{align*}
+
+as required.\\
+
+Now let $x, y \in \Sigma$. Suppose $x = y$. Then $d(x, y) = 0$ and we have trivially that $d(x, y) \leq d(x, z) + d(z, y)$ for any $z \in \Sigma$ because $d(x, z), d(z, y) \geq 0$ since $\theta > 0$.\\
+
+Now suppose $x \neq y$. Then,
+\begin{align*}
+d(x, y) &= \theta^{\min\{|k|: x_k \neq y_k\}}
+\end{align*}
+
+Let $k_0 = \min\{|k|: x_k \neq y_k\}$
+
+Fix $z \in \Sigma$. Then,
+\begin{align*}
+d(x, z) &= \theta^{\min\{|k|: x_k \neq z_k\}}
+\end{align*}
+
+Let $k_1 = \min\{|k|: x_k \neq z_k\}$\\
+
+We also have
+\begin{align*}
+d(z, y) &= \theta^{\min\{|k|: z_k \neq y_k\}}
+\end{align*}
+
+Let $k_2 = \min\{|k|: z_k \neq y_k\}$.\\
+
+Suppose $k_1 \geq k_2$. So we have,
+\begin{align*}
+d(x, z) + d(z, y) &= \theta^{k_1} + \theta^{k_2}\\
+&= \theta^{k_2}(\theta^{k_1-k_2} + 1)\\
+&\geq \theta^{k_2}
+\end{align*}
+
+\item Let $(y_k)$ be a Cauchy sequence of elements in $\Sigma$. Then for every $\epsilon > 0$, there exists an integer $N > 0$ such that for all integers $m, n > N$, we have,
+\begin{align*}
+d(y_m, y_n) < \epsilon
+\end{align*}
+
+That is,
+\begin{align*}
+d(y_m, y_n) &= \theta^{\min\{|k|: y_m \neq y_n\}} < \epsilon
+\end{align*}
+
+\item Let the shift map $\sigma: \Sigma \to \Sigma$ be defined by $\sigma(x) = (x_{k-1})_{k=-\infty}^{\infty}$
+\end{enumerate}
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Let $0 < \mu < 1$ and $x \in (0, 1]$.
+
+Then,
+\begin{align*}
+f_{\mu}(x) &= \mu x(1-x)\\
+&< x(1-x)\\
+&< x
+\end{align*}
+
+since $0 \leq 1 - x < 1$ and $0 < \mu < 1$.\\
+
+Let $x_1 = f_{\mu}(x)$. Then,
+\begin{align*}
+&f_{\mu}(x_1) < x_1\\
+&\iff f_{\mu}(f_{\mu}(x)) < f_{\mu}(x)\\
+&\iff f^2_{\mu}(x) < f_{\mu}(x) < x
+\end{align*}
+
+In general, for $i \in \{1, 2, \cdots\}$, we have that,
+\begin{align*}
+f^i_{\mu}(x) < f^{i-1}_{\mu}(x) < \cdots < f_{\mu}(x) < x
+\end{align*}
+
+In addition, we have that $0 \leq f_{\mu}(x) < 1 \; \forall \; x \in (0, 1]$, so we get,
+\begin{align*}
+0 \leq f^i_{\mu}(x), \; \forall \; i
+\end{align*}
+
+Hence,
+\begin{align*}
+0 \leq \cdots < f^i_{\mu}(x) < f^{i-1}_{\mu}(x) < \cdots < f_{\mu}(x) < x
+\end{align*}
+
+is a montonically decreasing sequence of real numbers with lower bound of $0$.\\
+
+Hence, by the Monotone Convergence Theorem, we get
+\begin{align*}
+\lim_{n \to \infty} f^n_{\mu}(x) = 0
+\end{align*} 
+
+for all $x \in (0, 1]$
+
+\item Now let $\mu > 1$ and $x \in \mathbb{R} \setminus [0, 1]$.\\
+
+Note that if $x > 1$ or $x < 0$, we have that $x(1-x) < 0$.\\
+
+If $x > 1$, we have,
+\begin{align*}
+f_{\mu}(x) &= \mu x(1-x)\\
+&< 0
+\end{align*}
+
+and thus,
+\begin{align*}
+f_{\mu}(x) &= \mu x(1-x) < x
+\end{align*}
+
+In addition, if $x < 0$, we have
+\begin{align*}
+f_{\mu}(x) &= \mu x(1-x)\\
+&< x(1-x)\\
+&< x
+\end{align*}
+
+since $(1-x) > 1$ when $x < 0$.\\
+
+Now we just need to show that there is no lower bound for the sequence $\lim_{n \to \infty} f^n_{\mu}(x)$\\
+
+Fix $x$ and suppose we have a lower bound $m$ for the above sequence.\\
+
+Then $m \leq f^i_{\mu} (x)$ for all $i$.\\
+
+Note that as $x$ becomes more negative, the rate of changes gets larger. That is,
+\begin{align*}
+|f_{\mu}^2(x) - f_{\mu}(x)| < |f_{\mu}^3(x) - f_{\mu}^2(x)|
+\end{align*}
+
+because $|x(1-x)|$ gets larger as $x$ becomes more negative.\\
+
+However, if $m$ is a lower bound, then this rate of change must decrease at some point.\\
+
+We know that it doesn't so there cannot be a lower bound for the sequence. Hence,
+\begin{align*}
+\lim_{n \to \infty} f^n_{\mu}(x) = -\infty
+\end{align*}
+
+when $x \in \mathbb{R} \setminus [0,1]$ and $\mu > 1$
+
+\end{enumerate}
+
+\end{document}
