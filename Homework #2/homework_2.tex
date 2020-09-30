@@ -48,7 +48,7 @@
 \title{Dynamical Systems: Homework 2}
 
 \author{Chris Hayduk}
-\date{September 24, 2020}
+\date{September 29, 2020}
 
 \maketitle
 
@@ -72,32 +72,235 @@ where $0 < \theta < 1$.\\
 
 Need to show that $(\Sigma, d)$ is compact.\\
 
-Let us show that $(\Sigma, d)$ is closed and bounded, and then prove that this gives us compactness.\\
+Let us suppose that $(\Sigma, d)$ is closed and bounded but not compact, and then prove that this gives us compactness.\\
 
-Consider $C_{-1, 1} = \{x_{-1}, x_0, x_1\}$, $x \in \Sigma$. There are $b^3$ possibilities.\\
-
-For $C_{-2, 2}$, we have
+Consider $C_{-k, k}(x) = \{y \in \Sigma: y_{-k} = x_{-k}, \cdots, y_k = x_k\}$. Then
 \begin{align*}
-C_{-2, 2} = \cup_{y \in C_{-1, 1}} 
+C_{-k, k}(x) &= B(x, \theta^k)\\
+&= \{y \in \Sigma: d_{\theta}(x,y) < \theta^k\}
 \end{align*}
 
-Note that $\Sigma = \Sigma_b = \{g: \mathbb{Z} \to \{0, \cdots, b-1\} 
-\; | \; g \; \text{function}\}$
+Hence, $C_{-k, k}(x)$ is open. $C_{-k, k}$ is also closed.\\
+
+$C_{-1, 1} = \{x_{-1}, x_0, x_1\}$, $x \in \Sigma$. There are $b^3$ possibilities.\\
+
+For $C_{-1, 1}$, we have
+\begin{align*}
+C_{-1, 1}(x) = \cup_{y \in C_{-1, 1}(x)} C_{-2, 2}(y) 
+\end{align*}
+
+So there are $b^2$ cylinders.\\
+
+Since $\Sigma$ is assumed to be bounded, we have a sequence of cylinders $C_{\ell}$ in $\Sigma$ such that $\Sigma \cap C_{\ell}$ does not have a finite subcover.\\
+
+We claim $(\Sigma \cap C_{\ell}) \to 0$.\\
+
+For every $\ell$, there exists $x_{\ell} \in \Sigma \cap C_{\ell}$\\
+
+This implies that $(x_{\ell})_{\ell}$ is a Cauchy sequence. Since $\Sigma$ is complete, the limit of this sequence exists and we write,
+\begin{align*}
+x = \lim_{\ell \to \infty} x_{\ell}
+\end{align*}
+
+Since $\Sigma$ is assumed to be closed, we have $x \in \Sigma$\\
+
+Hence, $\exists \lambda_x$ such that $x \in U_{\lambda_x}$ with $U_{\lambda_x}$ open.\\
+
+Thus, $\exists r > 0$ such that $B(x, r) \subset U_{\lambda_x}$\\
+
+Since claim $(C_{\ell}) \to 0$ and $x_{\ell} \in C_{\ell}$, we can conclude that,
+\begin{align*}
+C_{\ell} \subset B(x, r) \subset U_{\lambda_x}
+\end{align*}
+
+Hence, $\Sigma \cap C_{\ell} \subset U_{\lambda_x}$ and thus $\{U_{\lambda_x}\}$ is a finite subcover of $\Sigma \cap C_{\ell}$, a contradiction. Thus, $(\Sigma, d)$ is compact.
 
 \begin{problem}{2}
 \end{problem}
 
+Suppose $\Sigma_A$ is not closed. That is, there exists a sequence $(y)_{\ell} \in \Sigma_A$ which converges to a limit not in $\Sigma_A$. Let us call this limit $y$.\\
+
+Since $y \not\in \Sigma_A$, there exists $j \in \mathbb{Z}$ such that $a_{y_j, y_{j+1}} = 0$. Let this be the index with smallest absolute value $|j|$ such that this occurs. Since every element of the sequence $(y_k)_{\ell} \in \Sigma_A$, we have that $a_{y_{m_j}, y_{m_{j+1}}} = 1$ for every $m \in \mathbb{N}$\\
+
+Note then that $d(y, y_m) \geq \theta^j$ for every $m \in \mathbb{N}$. Hence, if we fix $\epsilon_j < \theta^j$, we have that,
+\begin{align*}
+d(y, y_m) \geq \theta^j > \epsilon_j
+\end{align*}
+
+for every $m \in \mathbb{N}$. As a result, we have that $(y)_{\ell}$ does not converge, a contradiction. Hence, $\Sigma_A$ must be closed.\\
+
+Now consider the shift map $\sigma$ (which shifts each entry in a sequence one space to the left) and the inverse shift map $\sigma^{-1}$ (which shifts each entry in a sequence one space to the right).\\
+
+Suppose $x \in \Sigma_A$. Then $a_{x_{i}, x_{i+1}} = 1$ for every $i \in \mathbb{Z}$.
+\newpage
 \begin{problem}{3}
 \end{problem}
 
+We have $f_{\mu}(x) = \mu x(1 - x)$
 \begin{enumerate}[label=(\alph*)]
-\item
+\item Suppose $\mu = 1$. Then we have,
+\begin{align*}
+f_{\mu}(x) = x(1 - x)
+\end{align*}
 
-\item
+Suppose $x \in (0, 1]$. Then we have,
+\begin{align*}
+x(1-x) < x
+\end{align*}
+
+since $0 \leq 1 - x < 1$. Hence, if we take $x_1 = f_{\mu}(x)$, then
+\begin{align*}
+f_{\mu}(x_1) = f^2_{\mu}(x) = x_1(1 - x_1) <  x_1 = f_{\mu}(x) < x
+\end{align*} 
+
+This extends for all $n \in \mathbb{N}$. Note also that,
+\begin{align*}
+f_{\mu}(0) = 0(1 - 0) = 0
+\end{align*}
+
+and that $0 \leq f_{\mu}(x) \leq 0.25$ for every $x \in (0, 1]$. That is, if our initial $x \in (0, 1]$, then $f^n_{\mu} \in [0, 0.25]$ for any choice of $n$.\\
+
+Thus, we have that $f^n_{\mu}(x)$ is a monotonically decreasing sequence of real numbers with lower bound $0$ if the initial $x \in (0, 1]$.\\
+
+Now note that we have,
+\begin{align*}
+&x = f_{\mu}(x)\\
+\iff &x = x(1-x)\\
+\iff &1 = 1-x\\
+\iff &x = 0
+\end{align*}
+
+so $0$ is the only fixed point of $f_{\mu}(x)$.\\
+
+Hence, we cannot have $\lim_{n \to \infty} f^n_{\mu} > 0$ since there are no positive fixed points. In addition, we cannot have $\lim_{n \to \infty} f^n_{\mu} < 0$ since $f^n_{\mu} \geq 0$ for every $n$. Thus, we must have,
+\begin{align*}
+\lim_{n \to \infty} f^n_{\mu} = 0
+\end{align*}
+
+for every $x \in (0, 1]$.
+
+\item Let $1 < \mu < 3$ and consider $p_{\mu} = \frac{\mu-1}{\mu}$. We have,
+\begin{align*}
+f_{\mu}\left(\frac{\mu-1}{\mu}\right) &= \mu \left(\frac{\mu-1}{\mu}\right) \left(1 - \frac{\mu-1}{\mu}\right)\\
+&= (\mu - 1) \left(1 - \frac{\mu-1}{\mu}\right)\\
+&= \mu - 1 - \frac{(\mu - 1)(\mu - 1)}{\mu}\\
+&= \mu - 1 - \frac{\mu^2 - 2\mu + 1}{\mu}\\
+&= \frac{\mu^2 - \mu - \mu^2 + 2\mu - 1}{\mu}\\
+&= \frac{\mu - 1}{\mu}
+\end{align*}
+
+So we have shown that $p_{\mu} = \frac{\mu-1}{\mu}$ is a fixed point of $f_{\mu}(x)$.\\
+
+Now consider,
+\begin{align*}
+&f_{\mu}(x) = \mu x(1-x)\\
+\implies &f_{\mu}'(x) = \mu (1 - 2x)
+\end{align*}
+
+So,
+\begin{align*}
+f_{\mu}'\left(\frac{\mu-1}{\mu}\right) &= \mu \left(1 - 2\left(\frac{\mu-1}{\mu}\right)\right)\\
+&= \mu - 2\mu \left(\frac{\mu-1}{\mu}\right)\\
+&= \mu - 2\mu + 2\\
+&= 2 - \mu
+\end{align*}
+
+Since $1 < \mu < 3$, we have,
+\begin{align*}
+-1 < 2 - \mu < 1
+\end{align*}
+
+and,
+\begin{align*}
+\left|f_{\mu}'\left(\frac{\mu-1}{\mu}\right)\right| < 1
+\end{align*}
+
+Thus, $p_{\mu}$ is an attracting fixed point.\\
+
+Now we need to show that $W^s_{\text{loc}}(p_{\mu}) = (0, 1)$. Note that,
+\begin{align*}
+W^s(a) &= \{x \in X: f^n(x) \to a \; \text{as} \; n \to \infty\}\\
+&= \{x \in X: \lim_{n \to \infty} |f^n(a) - f^n(x)| = 0\}
+\end{align*}
+
+and
+\begin{align*}
+W^s_{\text{loc}}(a) &= \text{the connected component of} \; W^s(a) \; \text{containing} \; a\\
+&= \cup_{n \in \mathbb{N}_0} f^{-n} \left(W^s_{\text{loc}}(a)\right)
+\end{align*}
 \end{enumerate}
 
 \begin{problem}{4}
 \end{problem}
 
+Let $f: \mathbb{R} \to \mathbb{R}$ be defined by $f(x) = \frac{1}{2}(x^3 + x)$. We have,
+\begin{align*}
+&x = \frac{1}{2}(x^3 + x)\\
+\iff &\frac{x^3}{2} + \frac{x}{2} - x = 0\\
+\iff &\frac{x^3}{2} - \frac{x}{2} = 0\\
+\iff &x^3 - x = 0\\
+\iff &x(x^2 - 1) = 0\\
+\iff &x = 0 \; \text{or} \; x^2 = 1
+\end{align*}
 
+So, we have that the fixed points of $f(x)$ are,
+\begin{align*}
+f(0) = 0, f(1) = 1, f(-1) = -1
+\end{align*}
+
+Now observe that,
+\begin{align*}
+f'(x) = \frac{1}{2}(3x^2 + 1)
+\end{align*}
+
+so we have,
+\begin{align*}
+f'(0) &= \frac{1}{2}\\
+f'(1) &= 2\\
+f'(-1) &= 2
+\end{align*}
+
+Hence, $0$ is an attracting fixed point and $1, -1$ are repelling fixed points.\\
+
+Observe that, if $x > 1$, then $x^3 - x > 2x$ and we get,
+\begin{align*}
+\frac{1}{2} (x^3 + x) > \frac{1}{2} (2x) = x
+\end{align*}
+
+Hence, for every $x > 1$, we have,
+\begin{align*}
+f(x) > x
+\end{align*}
+
+Now fix $x < -1$. Then we have $x^3 - x < 2x$ and we get
+\begin{align*}
+f(x) \frac{1}{2} (x^3 + x) < \frac{1}{2} (2x) = x
+\end{align*}
+
+for every $x < -1$.\\
+
+Now let $x \in (-1, 0)$. We have, $x^3 - x > 2x$, so 
+\begin{align*}
+f(x) = \frac{1}{2} (x^3 + x) < \frac{1}{2} (2x) = x
+\end{align*}
+
+for every $x \in (-1, 0)$. Since $0$ is an attracting fixed point and $f^n(x)$ is a monotonically increasing sequence with supremum $0$ when $x \in (-1, 0)$, we have that $\lim_{n \to \infty} f^n(x) = 0$ in this case.\\
+
+Now assume $x \in (0, 1)$. Then we have $x^3 - x < 2x$ and we get 
+\begin{align*}
+f(x) \frac{1}{2} (x^3 + x) < \frac{1}{2} (2x) = x
+\end{align*}
+
+for every $x \in (0, 1)$. Since $0$ is an attracting fixed point and $f^n(x)$ is a monotonically decreasing sequence with infimum $0$ when $x \in (1, 0)$, we have that $\lim_{n \to \infty} f^n(x) = 0$ in this case.\\
+
+Thus, we get the following limit,
+\begin{align*}
+\lim_{n \to \infty} f^n(x) = \begin{cases} 
+      -\infty & x < -1 \\
+      -1 & x = -1\\
+      0 & -1 < x < 1 \\
+      1 & x = 1\\
+      \infty & x > 1 
+   \end{cases}
+\end{align*}
 \end{document}
