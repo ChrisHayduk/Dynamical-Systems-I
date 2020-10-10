@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{kbordermatrix}
+
+\usepackage{graphicx}
+
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+
+
+\begin{document}
+
+\title{Dynamical Systems: Homework 3}
+
+\author{Chris Hayduk}
+\date{October 8, 2020}
+
+\maketitle
+
+\begin{problem}{1}
+\end{problem}
+
+Recall that $\Sigma_b^+$ is a one-sided shift map. That is,
+\begin{align*}
+\Sigma_b^+ = \{x = (x_k)_{k=0}^{\infty} : x_k \in \{0, \cdots b-1\}\}
+\end{align*}
+
+The shift map $\sigma: \Sigma_b^+ \to \Sigma_b^+$ is defined as follows:
+\begin{align*}
+\sigma((x_k)_{k=0}^{\infty}) = (x_{k+1})_{k = 0}^{\infty}
+\end{align*}
+
+That is, we are essentially cutting off the first element of the sequence.\\
+
+Lastly, we have that,
+\begin{align*}
+d(x, y) = d_{\theta}(x, y) = \begin{cases}
+      0 & \text{if} \; x = y \\
+      \theta^{\min \{k: x_k \neq y_k\}} & \text{if} \; x \neq y
+    \end{cases}
+\end{align*}
+
+where $0 < \theta < 1$.\\
+
+We will start now by proving that $\sigma$ has sensitive dependence.\\
+
+Now fix $x = (x_0x_1x_2\cdots) \in \Sigma_b^+$ and let $\delta > 0$. Fix $k \in \mathbb{N}$ such that it is the smallest natural number with $\theta^k < \delta$. Now define $y$ such that $y_i = x_i$ for $0 \leq i \leq k-1$ and such that, for every index $i > k$, we have $y_i \in \{0, \cdots, b-1\}$ and $y_i \neq x_i$. Clearly $y \in \Sigma_b^+$ and we have,
+\begin{align*}
+y = (x_0x_1x_2\cdots x_{k-1}y_{k}y_{k+1} \cdots)\\
+x = (x_0x_1x_2\cdots x_{k-1}x_kx_{k+1} \cdots)
+\end{align*}
+
+This yields,
+\begin{align*}
+d(x, y) = \theta^k < \delta
+\end{align*}
+
+Now apply the shift map $k$ times:
+\begin{align*}
+\sigma^{k}(x) &= (x_kx_{k+1}x_{k+2}\cdots) = (\sigma^k(x)_0\sigma^k(x)_1\cdots)\\
+\sigma^{k}(y) &= (x_ky_{k+1}y_{k+2}\cdots) = (\sigma^k(y)_0\sigma^k(y)_1\cdots)
+\end{align*}
+
+Then we have,
+\begin{align*}
+d(\sigma^{k}(x), \sigma^{k}(y)) = \theta^1
+\end{align*}
+
+If we fix $\epsilon = \theta^2$, then we have,
+\begin{align*}
+d(\sigma^{k}(x), \sigma^{k}(y)) = \theta^1 > \epsilon
+\end{align*}
+
+Since $x$ and $\delta$ were arbitrary, this holds for every $x \in \Sigma_b^+$ and every $\delta > 0$. Hence, $\sigma$ has sensitive dependence.\\
+
+Now we will prove that $\text{Per}(\sigma)$ is dense in $\Sigma_b^+$.\\
+
+For a point $x \in \Sigma_b^+$ to be periodic, it must be the repetition for some block of symbols in $\{1, \cdots, b-1\}$. That is, there is some $n \in \mathbb{N}$ such that $x_{[0, n-1]} = x_{[n, 2n-1]} = x_{[2n, 3n-1]} = \cdots$.\\
+
+Now fix $y \in \Sigma_b^+$ and fix $\epsilon > 0$. Then consider the set,
+\begin{align*}
+B_{\epsilon}(y) = \{x \in \Sigma_b^+: d(x, y)\} < \epsilon
+\end{align*}
+
+So for every $x \neq y \in B_{\epsilon}(y)$, we have $d(x, y) = \theta^{\min \{k: x_k \neq y_k\}} < \epsilon$\\
+
+Now let $k \in \mathbb{N}$ be the smallest natural number such that $\theta^k < \epsilon$. Then define the block $y_{[0, k-1]}$ using elements of $y$. Next, define $x_k = y_k + 1 \mod b$. Let $x_y = (y_{[0, k-1]}x_ky_{[0, k-1]}x_ky_{[0, k-1]}x_k\cdots) = (y_0y_1\cdots y_{k-1}x_ky_0y_1\cdots y_{k-1}x_k\cdots)$. Clearly we have,
+\begin{align*}
+d(x_y, y) &= \theta^k < \epsilon
+\end{align*}
+
+Moreover, we have that $x_{[0, k]} = x_{[k+1, 2k+1]} = x_{[2k+2, 3k+2]} = \cdots$. So we have that,
+\begin{align*}
+\sigma^{k+1}(x) = x
+\end{align*}
+
+Hence, $x$ is a periodic point with period $k+1$.\\
+
+Since $\epsilon > 0$ and $y \in \Sigma_b^+$ were arbitrary, this holds for any $y \in \Sigma_b^+$ with any choice of $\epsilon > 0$. Hence, we have Per($\sigma$) is dense in $\Sigma_b^+$.\\
+
+Lastly we need to show that $\sigma$ is topologically transitive. That is, $\exists x \in \Sigma_b^+$ such that the orbit $O(x) = \{\sigma^n(x) : n \in \mathbb{N}_0\}$ of $x$ is dense in $\Sigma_b^+$.\\
+
+Define $x$ to be the sequence of all valid $n$ blocks in $\Sigma_b^+$. That is, for every valid block of symbols in $\Sigma_b^+$, such as $z_1z_2z_3\cdots z_n$, this block is contained somewhere in $x$. The number of valid blocks is countable because for each block size $n$, there are a finite number of combinations. Hence, $x$ is essentially a countable union of finite sets and thus is countable. As a result, $x$ is a valid element of $\Sigma_b^+$.\\
+
+Now fix $y \in \Sigma_b^+$. Let $\epsilon > 0$ and define $k \in \mathbb{N}$ such that it is the smallest natural number such that $\theta^k < \epsilon$.\\
+
+Now consider the first $k$ elements of $y$. That is,
+\begin{align*}
+y_{[0, k-1]} = y_0y_1\cdots y_{k-1}
+\end{align*}
+
+We have that $y_{[0, k-1]}$ is a $k$-block in $\Sigma_b^+$ and that $x$ contains every possible block at some point in the sequence. So we know we can apply $\sigma$ some number $m$ times which yields,
+\begin{align*}
+\sigma^m(x)_{[0, k-1]} = y_{[0, k-1]}
+\end{align*}
+
+Then we have that,
+\begin{align*}
+d(\sigma^m(x), y) = \theta^k < \epsilon
+\end{align*}
+
+So we have $\sigma^m(x) \in B_{\epsilon}(y)$. Since $y \in \Sigma_b^+$ and $\epsilon > 0$ were arbitrary, this holds for any $y \in \Sigma_b^+$ with any choice $\epsilon > 0$. Hence, we have that $O(x)$ is dense in $\Sigma_b^+$.\\
+
+Hence, we have that $\sigma$ satisfies all three properties and hence $\sigma$ is chaotic.
+
+\begin{problem}{2}
+\end{problem}
+
+Recall that $f$ and $g$ being topologically conjugate means there exists a homeomorphism $h: A \to B$ such that,
+\begin{align*}
+h \circ f \circ h^{-1} = g
+\end{align*}
+
+Or equivalently,
+\begin{align*}
+h \circ f = g \circ h
+\end{align*}
+
+In addition, $h$ as a homeomorphism means that it is bijective, continuous, and its inverse $h^{-1}$ is continuous.\\
+
+Now suppose $f$ is chaotic. We know that $f$ is topologically transitive. That is, $\exists x \in A$ such that $O(x)$ is dense in $A$.\\
+
+Fix $y \in B$. Let $\epsilon > 0$ and consider the open set $B_{\epsilon}(y)$. We have that $h^{-1}$ is continuous. Take $h^{-1}(y_1) = x$
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{problem}{4}
+\end{problem}
+
+\end{document}
