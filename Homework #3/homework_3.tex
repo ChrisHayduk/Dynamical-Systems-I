@@ -42,6 +42,7 @@
 
 \DeclareMathOperator*{\E}{\mathbb{E}}
 
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 
 \begin{document}
 
@@ -161,7 +162,7 @@ Hence, we have that $\sigma$ satisfies all three properties and hence $\sigma$ i
 \begin{problem}{2}
 \end{problem}
 
-Recall that $f$ and $g$ being topologically conjugate means there exists a homeomorphism $h: A \to B$ such that,
+We have that $f: A \to A$ and $g: B \to B$ are continuous maps on compact metric spaces $A$ and $B$. Recall that $f$ and $g$ being topologically conjugate means there exists a homeomorphism $h: A \to B$ such that,
 \begin{align*}
 h \circ f \circ h^{-1} = g
 \end{align*}
@@ -173,14 +174,81 @@ h \circ f = g \circ h
 
 In addition, $h$ as a homeomorphism means that it is bijective, continuous, and its inverse $h^{-1}$ is continuous.\\
 
-Now suppose $f$ is chaotic. We know that $f$ is topologically transitive. That is, $\exists x \in A$ such that $O(x)$ is dense in $A$.\\
+Now suppose $f$ is chaotic. We know that $\text{Per}(f)$ is dense in $X$. Let $I \subset B$ be a non-empty open set. Then $h^{-1}(I)$ is a union of open sets by the continuity of $h$. Let $K$ be one of these open sets in $A$, and fix a point $y \in \text{Per}(f) \cap K$, which exists since $\text{Per}(f)$ is dense in $A$. But then, $h(y) \in h(\text{Per}(f)) \cap I$. Thus, $h(\text{Per}(f))$ is dense in $B$.\\
 
-Fix $y \in B$. Let $\epsilon > 0$ and consider the open set $B_{\epsilon}(y)$. We have that $h^{-1}$ is continuous. Take $h^{-1}(y_1) = x$
+Now note that, since $y$ is periodic under $f$, we have for some $n \in \mathbb{N}$,
+\begin{align*}
+&f^n(p) = p\\
+\implies &g^n(h(p)) = h(f^n(p)) = h(p)
+\end{align*}
+
+Hence, $h(\text{Per}(f)) \subset \text{Per}(g)$. Since $h(\text{Per}(f))$ is dense in $B$, we must then have that $\text{Per}(g)$, as required.\\
+
+We also know that $f$ is topologically transitive. That is, $\exists x \in A$ such that $O(x)$ is dense in $A$.\\
+
+Fix $y \in B$. Let $\epsilon > 0$ and consider the open set $B_{\epsilon}(y)$. Now fix $J$ as an open set in $B$ such that $J \cap B_{\epsilon}(y) = \emptyset$. We want to show that $g^n(y) \in I$ for some $n \in \mathbb{N}$.\\
+
+Since $h$ is continuous, then $h^{-1}(J)$ maps to a union of open sets in $A$. In addition, since $h$ is surjective, we have that $h^{-1}(J)$ is non-empty. Let $L$ be one of the open sets in $h^{-1}(J)$. We also have $h^{-1}(B_{\epsilon}(y))$ is a union of open sets in $A$. Let $K$ be one of these open sets.\\
+
+By the transitivity of $f$, we can find an $n$ and a $x \in K$ with $f^n(x) \in L$. Let $y = h(x)$. Then $x \in I$ and $g^n(y) = g^n(h(x)) = h(f^n(x)) \in h(L) \subset J$.\\
+
+Hence, for any open set in $B$, we can find an $n$ such that $g^n(y)$ is in that open set. Thus, $O(y)$ is dense in $B$ and $g$ is topologically transitive.\\
+
+Lastly, we need to show that the sensitive dependence on initial conditions of $f$ implies the same for $g$.
 
 \begin{problem}{3}
 \end{problem}
 
+Let $f_{\mu} = \mu x(1-x)$ where $\mu > 2 + \sqrt{5}$. Recall that sensitive dependence on initial conditions means there exists $\epsilon > 0$ such that for all $x \in X$ and all $\delta > 0$, there exists $y \in X$ with $d(x,y) < \delta$ and there exists $n \in \mathbb{N}$ such that $d(f^n(x), f^n(y)) \geq \epsilon$.\\
+
+Let us now see if there are multiple fixed points for $f_{\mu}$. We clearly have that,
+\begin{align*}
+0 = \mu \cdot 0(1 - 0) = f_{\mu}(0)
+\end{align*}
+
+So then $x = 0$ is a fixed point of $f_{\mu}$. In addition, we have,
+\begin{align*}
+f_{\mu}(1 - \frac{1}{\mu}) &= \mu \cdot (1 - \frac{1}{\mu}) \cdot (1 - (1 - \frac{1}{\mu})\\
+&= (\mu - 1) \cdot (\frac{1}{\mu})\\
+&= 1 - \frac{1}{\mu}
+\end{align*}
+
+Hence, we have that $1 - \frac{1}{\mu}$ is a fixed point of $f_{\mu}$ as well. Note that,
+\begin{align*}
+1 - \frac{1}{\mu} &> 1 - \frac{1}{2 + \sqrt{5}}\\
+&= 3 - \sqrt{5}\\
+\end{align*}
+
+So $3 - \sqrt{5} \approx 0.7639 < 1 - \frac{1}{\mu} < 1$ for every $\mu > 2 + \sqrt{5}$. Hence, both $0$ and $1 - \frac{1}{\mu}$ are in the interval of interest $[0, 1]$ for every choice of $\mu > 2 + \sqrt{5}$.\\
+
+As a result, $f_{\mu}$ has at least two distinct periodic orbits.\\
+
+Now fix two distinct periodic points, $r$ and $s$ so that,
+\begin{align*}
+d(f_{\mu}^k(r), f_{\mu}^{\ell}(s)) > 0
+\end{align*}
+
+for all $k$ and $\ell$. Choose $c$ such that $2c < \min d(f_{\mu}^k(r), f_{\mu}^{\ell}(s))$. Then for all $k$ and $\ell$, and for any $x \in [0, 1]$, we have,
+\begin{align*}
+2c &< d(f_{\mu}^k(r), f_{\mu}^{\ell}(s))\\
+&\leq d(f_{\mu}^k(r), x) + d(x, f_{\mu}^{\ell}(s))
+\end{align*}
+
+If $d(f_{\mu}^k(r), x) \leq c$, then by the above derivation, $d(x, f_{\mu}^{\ell}(s)) \geq c$. Similarly, if $d(x, f_{\mu}^{\ell}(s)) \leq c$, then  $d(f_{\mu}^k(r), x) \geq c$.\\
+
+Since $f_{\mu}$ maps the unit interval into itself, for any $f_{\mu}^k(x_1)$, we can find an $x = f^n(x_1)$ with $x \in [0, 1]$ and $d(x, p) < \delta$ for any $\delta > 0$ and some periodic point $p$. Hence, by what we have proved above, we have that,
+\begin{align*}
+d(f_{\mu}^k(p), x = f_{\mu}^k(x_1)) \geq c > 0
+\end{align*}
+
+If we let $\epsilon = c$, then we have proved sensitive dependence for $f_{\mu}$ with $\mu > 2 + \sqrt{5}$.
+
 \begin{problem}{4}
 \end{problem}
+
+Under the angle doubling map, we have that,
+\begin{align*}
+\theta \mapsto 2\theta \Mod{2\pi}
+\end{align*}
 
 \end{document}
