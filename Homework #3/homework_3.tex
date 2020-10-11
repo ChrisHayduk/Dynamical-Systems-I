@@ -194,8 +194,20 @@ By the transitivity of $f$, we can find an $n$ and a $x \in K$ with $f^n(x) \in 
 
 Hence, for any open set in $B$, we can find an $n$ such that $g^n(y)$ is in that open set. Thus, $O(y)$ is dense in $B$ and $g$ is topologically transitive.\\
 
-Lastly, we need to show that the sensitive dependence on initial conditions of $f$ implies the same for $g$.
+Lastly, we need to show that the sensitive dependence on initial conditions of $f$ implies the same for $g$. Let $x \in A$ and let $\epsilon > 0$. Then for all $\delta > 0$, there exists $y \in A$ such that $d(x, y) < \delta$ and there exists $n \in \mathbb{N}$ such that $d(f^n(x), f^n(y)) \geq \epsilon$.\\
 
+Since $h$ is continuous, we have that $h(y) \in B_{\delta_1}(h(x))$ for some $\delta_1 > 0$ since $y \in B_{\delta}(x)$. Now consider $g^n(h(x)) = h(f^n(x))$ and $g^n(h(y)) = h(f^n(y))$. Consider $\epsilon$ as fixed in the above paragraph. Since $h^{-1}$ is continuous, we have that if $g^n(h(y)) \in B_{\epsilon_1}(g^n(h(x)))$ for some $\epsilon_1 > 0$, then $h^{-1}(g^n(h(y))) \in B_{\epsilon}(h^{-1}(g^n(h(y))))$. By the identities shown above, this is equivalent to,
+\begin{align*}
+f^n(x) \in B_{\epsilon_1}(f^n(y))
+\end{align*}
+
+However, we assumed that $d(f^n(x), f^n(y)) \geq \epsilon$. Hence, we have a contradiction and so we must have that $d(g^n(h(x)), g^n(h(y))) \geq \epsilon_1$. Thus, we have that $d(h(x), h(y)) < \delta_1$, but $d(g^n(h(x)), g^n(h(y))) \geq \epsilon_1$. Since $x$ and $\epsilon_1$ were arbitrary, we have that this holds for every $x \in A$ and every $\epsilon_1 > 0$. Thus, $g$ also has the sensitive dependence property.\\
+
+From the above 3 parts, we have proved that if $f$ is chaotic and topologically conjugate to $g$, then $g$ is chaotic.\\
+
+The other direction of the proof is completed analogously to the first direction. We must simply swap the roles of $f$ and $g$ as well as $h$ and $h^{-1}$,
+
+\newpage
 \begin{problem}{3}
 \end{problem}
 
@@ -244,6 +256,7 @@ d(f_{\mu}^k(p), x = f_{\mu}^k(x_1)) \geq c > 0
 If we let $\epsilon = c$, then we have proved sensitive dependence for $f_{\mu}$ with $\mu > 2 + \sqrt{5}$.
 
 \begin{problem}{4}
+Bonus problem
 \end{problem}
 
 Under the angle doubling map, we have that,
