@@ -1,0 +1,308 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{kbordermatrix}
+
+\usepackage{graphicx}
+
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\title{Dynamical Systems: Homework 4}
+
+\author{Chris Hayduk}
+\date{October 25, 2020}
+
+\maketitle
+
+\begin{problem}{1}
+\end{problem}
+
+Recall that the shift map $\sigma: \Sigma_A \to \Sigma_A$ is defined as follows:
+\begin{align*}
+\sigma((x_k)_{k=0}^{\infty}) = (x_{k+1})_{k = 0}^{\infty}
+\end{align*}
+
+That is, we are essentially cutting off the first element of the sequence.\\
+
+In addition, recall that topological transitivity is defined as $\exists x \in \Sigma_A$ such that the orbit $O(x) = \{\sigma^n(x) : n \in \mathbb{N}_0\}$ of $x$ is dense in $\Sigma_A$.\\
+
+Lastly, we have that,
+\begin{align*}
+d(x, y) = d_{\theta}(x, y) = \begin{cases}
+      0 & \text{if} \; x = y \\
+      \theta^{\min \{k: x_k \neq y_k\}} & \text{if} \; x \neq y
+    \end{cases}
+\end{align*}
+
+where $0 < \theta < 1$.\\
+
+Let us define $A$ as follows,
+\begin{align*}
+A = \kbordermatrix{
+    & 0 & 1 & 2 & 3 & 4 & \cdots & d-1 \\
+    0 & 0 & 1 & 1 & 1 & 1 & \cdots & 1\\
+    1 & 0 & 1 & 1 & 1 & 1 & \cdots & 1\\
+    2 & 0 & 1 & 1 & 1 & 1 & \cdots & 1\\
+    3 & 0 & 1 & 1 & 1 & 1 & \cdots & 1\\
+    4 & 0 & 1 & 1 & 1 & 1 & \cdots & 1\\
+    \vdots & & & \vdots & & & \cdots &\vdots\\
+    d-1 & 0 & 1 & 1 & 1 & 1 & \cdots & 1
+  }
+\end{align*}
+
+That is, $0$ cannot appear anywhere in a sequence $x \in \Sigma_A$ except for in the first position. Now let us fix some $x, y \in \Sigma_A$ with $x \neq y$. Let $y$ be such that it begins with $0$. That is,
+\begin{align*}
+y = (0y_1y_2y_3\cdots)
+\end{align*}
+
+If $x$ does not also start with $0$, then it is clear that,
+\begin{align*}
+d(\sigma^n(x), y) = \theta^0 = 1
+\end{align*}
+
+for every $n \in \mathbb{N}_0$. This is true because, by the definition of $A$, the element $0$ can only appear as the first element in a sequence. Hence, if $x$ does not start with a $0$, then $O(x) \cap B(y, \epsilon) = \emptyset$ for every $y \in \Sigma_A$ that starts with $0$ and every $\epsilon < 1$.\\
+
+Now suppose $x$ does indeed start with a $0$ and fix $\epsilon = \theta^2$. Observe that following a $0$, we have $d-1$ choices for the next element in the sequence. Let us now fix $y \in \Sigma_A$ such that $y_0 = 0$ and $y_1 \neq x_1$. Then we have,
+\begin{align}
+d(x, y) = \theta^1 = \theta
+\end{align}
+
+However, observe that since $0$ can only appear at the beginning of a sequence, the first element of $\sigma^n(x)$ will never be $0$ for any $n \geq 1$. Hence, we have,
+\begin{align*}
+d(\sigma^n(x), y) = \theta^0 = 1
+\end{align*}
+
+for every $n > 1$. Combining this result with (1) yields
+\begin{align*}
+d(\sigma^n(x), y) \geq \theta > \epsilon = \theta^2
+\end{align*}
+
+for all $n \in \mathbb{N}_0$. Thus, we have that $O(x) \cap B(y, \epsilon) = \emptyset$ in this case as well. Since we have covered all possible cases for $x \in \Sigma_A$, we have shown that there is no $x$ such that $O(x)$ is dense in $\Sigma_A$.
+
+
+\begin{problem}{2}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Suppose $\lambda > 1/e$. Then,
+\begin{align*}
+E_{\lambda}(x) &= \lambda e^x\\
+&> \frac{e^x}{e}\\
+&= e^{x-1}
+\end{align*}
+
+Hence, if we define $f(x) = e^{x-1}$, it suffices to show that $\lim_{n \to \infty} f^n(x) = \infty$ in order to assert that $\lim_{n \to \infty} E_{\lambda}^n(x) = \infty$.\\
+
+From Bernoulli's Inequality, we have that,
+\begin{align*}
+e^x \geq x+1
+\end{align*}
+
+for all $x \in \mathbb{R}$. Hence, applying this to our case, we have that,
+\begin{align*}
+f(x) = e^{x-1} \geq (x-1)+1 = x
+\end{align*}
+
+Now let us define the function $y = x-1$. Then,
+\begin{align*}
+f(y) = e^{y} \geq y + 1
+\end{align*}
+
+Note that $y$ ranges over all of $\mathbb{R}$. Define $g(y) = y+1$. It is clear that,
+\begin{align*}
+g^n(y) &= y + 1 + 1 + \cdots + 1\\
+&= y + n
+\end{align*}
+
+Thus,
+\begin{align*}
+\lim_{n \to \infty} g^n(y) &= y \lim_{n \to \infty} n\\
+&= y \cdot \infty\\
+&= \infty
+\end{align*}
+
+Since $E_{\lambda}(x) > f(x) = f(y) \geq g(y)$, we have that,
+\begin{align*}
+\lim_{n \to \infty} E_{\lambda}^n(x) > \lim_{n \to \infty} f^n(y) \geq \lim_{n \to \infty} g(y)
+\end{align*}
+
+This yields,
+\begin{align*}
+\lim_{n \to \infty} E_{\lambda}^n(x) > \infty
+\end{align*}
+
+and so,
+\begin{align*}
+\lim_{n \to \infty} E_{\lambda}^n(x) = \infty
+\end{align*}
+
+\item Now suppose $\lambda = 1/e$. Then we have,
+\begin{align*}
+E_{\lambda}(x) &= \lambda e^x\\
+&=\frac{e^x}{e}\\
+&= e^{x-1}
+\end{align*}
+
+Observe that $E_{\lambda}(1) = e^{1-1} = 1$. Hence, $1$ is a fixed point of $E_{\lambda}(x)$. In addition, we have,
+\begin{align*}
+E_{\lambda}'(x) = e^{x-1}
+\end{align*}
+
+So,
+\begin{align*}
+E_{\lambda}'(1) &= e^{1-1}\\
+&= 1
+\end{align*}
+
+Hence, $1$ is a non-hyperbolic fixed point of $E_{\lambda}(x)$. Now suppose $x < 1$. Then,
+\begin{align}
+E_{\lambda}(x) &= e^{x-1} \nonumber \\
+&< e^{1-1} = 1
+\end{align}
+
+In addition, from Bernoulli's Inequality, we have that,
+\begin{align*}
+e^x \geq x+1
+\end{align*}
+
+for all $x \in \mathbb{R}$. Hence, applying this to our case, we have that,
+\begin{align*}
+E_{\lambda}(x) = e^{x-1} \geq (x-1)+1 = x
+\end{align*}
+
+Note that since $x \neq 1$, we get the following inequality,
+\begin{align}
+E_{\lambda}(x) = e^{x-1} > (x-1)+1 = x
+\end{align}
+
+By combining (2) and (3) and fixing $x < 1$, we have that,
+\begin{align*}
+x < E_{\lambda}(x) < E_{\lambda}^2(x) < E_{\lambda}^3(x) < \cdots < 1
+\end{align*}
+
+Hence, if we define the sequence $(x_n)_{n \in \mathbb{N}_0} = E_{\lambda}^n(x)$, we have that it is monotonically increasing and bounded above by $1$. Thus, by the Monotone Convergence Theorem, $(x_n)$ converges to its supremum.\\
+
+Now suppose that $\sup (x_n) < 1$. Then there exists $m \in \mathbb{R}$ such that $x_n \leq m < 1$ for every $n \in \mathbb{N}_0$. But observe that, since $m$ is a supremum of the set, for any $\epsilon > 0$, we have that $m < x_n + \epsilon$ for some $x_n$. If we choose $\epsilon$ small enough, we have,
+\begin{align*}
+x_{n+1} &= e^{x_n - 1}\\
+&> x_n
+\end{align*}
+
+Hence, $x_{n+1} = x_n + \epsilon$ and so $x_{n+1} > m$, a contradiction. Thus the supremum of the set is $1$. Hence, if $x < 1$, then,
+\begin{align*}
+\lim_{n \to \infty} E_{\lambda}^n(x) = 1
+\end{align*}
+
+Now suppose $x > 1$. We have,
+\begin{align*}
+x < E_{\lambda}(x) < E_{\lambda}^2(x) < E_{\lambda}^3(x) < \cdots
+\end{align*}
+
+as before. However, we also have that this set is unbounded. Suppose that it were bounded. Then there exists a number $m > 1$ such that,
+\begin{align*}
+x < E_{\lambda}(x) < E_{\lambda}^2(x) < E_{\lambda}^3(x) < \cdots < m
+\end{align*}
+
+This implies that $m$ is a fixed point of $E_{\lambda}^n(x)$. However, we know that there are no fixed point of this function greater than $1$. Thus, we have a contradiction and hence there is no upper bound for this sequence. Thus, if $x > 1$, then,
+\begin{align*}
+\lim_{n \to \infty} E_{\lambda}^n(x) = \infty
+\end{align*}
+
+
+\item Suppose $0 < \lambda < 1/e$. Then
+\begin{align*}
+E_{\lambda}(x) &= \lambda e^x\\
+&< \frac{e^x}{e}\\
+&= e^{x-1}
+\end{align*}
+
+We have,
+\begin{align*}
+&\lambda e^x = x\\
+\implies &e^x = x/\lambda\\
+\implies &x = \ln(x/\lambda)\\
+\implies &x = \ln(x) - \ln(\lambda)
+\end{align*}
+\end{enumerate}
+
+\begin{problem}{3}
+\end{problem}
+
+Let $\alpha \in [0, 1) \cap \mathbb{Q}$. Hence, $\alpha = q/p$ for some $q, p \in \mathbb{Z}$ such that $0 \leq \alpha < 1$. Hence,
+\begin{align*}
+f(e^{2\pi i \phi}) &= e^{2\pi i (\alpha + \phi)}\\
+&= e^{2\pi i (p/q + \phi)}
+\end{align*}
+
+Note that this map shifts the initial angle by $\alpha = p/q$. Now suppose we consider $f^q(e^{2\pi i \phi})$. That is, we iterate the function $q$ times. We are thus have that $f^q$ is equivalent to,
+\begin{align*}
+f^q(e^{2\pi i \phi}) &= e^{2\pi i[(\alpha + \alpha + \cdots + \alpha) + \phi]}
+\end{align*} 
+
+That is, we are shifting the initial angle by $q \cdot \alpha = p$. Hence,
+\begin{align*}
+f^q(e^{2\pi i \phi}) &= e^{2\pi i (q \cdot \alpha + \phi)}\\
+&= e^{2\pi i (p + \phi)}\\
+&= e^{2\pi i p + 2\pi i \phi}
+\end{align*}
+
+Since $p \in \mathbb{Z}$, we have that $2 \pi i p$ is a multiple of $2\pi$. Hence, $2\pi i p$ represents a full rotation around the circle, returning to the angle $\phi$. Thus,
+\begin{align*}
+f^q(e^{2\pi i \phi}) &= e^{2\pi i \phi}
+\end{align*}
+
+for any angle $\phi$. Hence, $\text{Per}(f) = [0, 2\pi)$.\\
+
+Now suppose $\alpha \in [0, 1) \cap \mathbb{I}$. I would guess that $\text{Per}(f)$ would exclude any rational points, since shifting a rational number by an irrational number would result in an irrational number.
+
+\begin{problem}{4}
+Bonus problem
+\end{problem}
+
+\begin{problem}{5}
+Bonus problem
+\end{problem}
+
+Let $4 < \mu \leq 2 + \sqrt{5}$ and let $\Lambda_{\mu} = \{x \in [0, 1] \ | \ f^n(x) \in [0, 1] \ \forall n \in \mathbb{N}\}$
+
+\end{document}
