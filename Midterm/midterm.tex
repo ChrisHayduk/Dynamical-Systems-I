@@ -1,0 +1,278 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{kbordermatrix}
+
+\usepackage{graphicx}
+
+\renewcommand{\kbldelim}{(}% Left delimiter
+\renewcommand{\kbrdelim}{)}% Right delimiter
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\begin{document}
+
+\title{Dynamical Systems: Midterm}
+
+\author{Chris Hayduk}
+\date{November 1, 2020}
+
+\maketitle
+
+\begin{problem}{1}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Devaney's definition of a chaotic function is as follows,\\
+
+\textbf{Definition} Let $V$ be a set. $f: V \to V$ is said to be chaotic on $V$ if
+\begin{enumerate}
+
+\item $f$ has \textit{sensitive dependence on initial conditions}. That is, $\exists \delta > 0$ such that for any $x \in V$ and all $\epsilon > 0$, there exists $y \in B(x, \epsilon)$ and $n \geq 0$ such that $|f^n(x) - f^n(y)| > \delta$ 
+
+\item $f$ is \textit{topologically transitive}. That is, $\exists x \in V$ such that $O(x)$ is dense in $V$
+
+\item periodic points of $f$ (i.e. Per$(f)$) are dense in $V$
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item Note that on HW3, Q4 we discussed the angle doubling map, $g: S^1 \to S^1$ given by $z \mapsto z^2$. This was equivalent to $\tilde{g}: S^1 \to S^1$, $\tilde{g}(\alpha) = e^{2\pi i (2\alpha)} = e^{4\pi i \alpha}$.\\
+
+Let us now turn our attention to this function: $f: S^1 \to S^1$ given by $z \mapsto z^5$. This is equivalent to $\tilde{f}: S^1 \to S^1$, $\tilde{f}(\alpha) = e^{2\pi i (5\alpha)} = e^{10\pi i \alpha}$.\\
+
+We proved in HW3, Q4 that $\tilde{g}$ (and hence $g$) was chaotic. Moreover, we proved in HW3, Q3 if two continuous maps defined on metric spaces are topologically conjugate, then one being chaotic implies that the other is chaotic. Since $\tilde{g}$ and $\tilde{f}$ are both continuous and defined on metric spaces, all we must show is that $\tilde{g}$ is topologically conjugate to $\tilde{f}$ in order to show that $f$ is chaotic.\\
+
+Note that $h(x) = e^{2/5}x$ is continuous since it is a constant multiplied by $x$, where $x$ is in $S^1$. In addition, we have that $h^{-1}(x) = e^{5/2}x$ is continuous for the same reason. Both are also well-defined on $S^1$. Moreover, note that 
+\begin{align*}
+h \circ \tilde{f} &= e^{2/5} \cdot e^{10\pi i \alpha}\\
+&= e^{4\pi i \alpha}
+\end{align*}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{problem}{2}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Let $\lambda = -e$. Then,
+\begin{align*}
+E_{\lambda}(x) &= \lambda e^x\\
+&= -e \cdot e^x\\
+&= -e^{x+1}
+\end{align*}
+
+Hence, we have,
+\begin{align*}
+E_{\lambda}(-1) &= -e^{-1 + 1}\\
+&= -e^0\\
+&= -1
+\end{align*}
+
+Now note that, by the chain rule, we have
+\begin{align*}
+E_{\lambda}'(x) &= -e^{x+1}\\
+&= E_{\lambda}(x)
+\end{align*}
+
+Thus,
+\begin{align*}
+E_{\lambda}'(-1) &= E_{\lambda}(-1)\\
+&= -1
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item Let $\lambda > -e$. Then,
+\begin{align*}
+E_{\lambda}(x) > -e^{x+1}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item Let $\lambda < -e$. Then,
+\begin{align*}
+E_{\lambda}(x) < -e^{x+1}
+\end{align*}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}{4}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Idea: assign to each dynamical system a positive real number $h_{\text{top}}(f)$, where $f: X \to X$ is continuous and $(X, d)$ is a compact metric space such that
+\begin{enumerate}[label=\roman*)]
+\item if $f$ and $g$ are topologically conjugate then $h_{\text{top}}(f) = h_{\text{top}}(g)$
+\item if $0 < h_{\text{top}}(f) < h_{\text{top}}(g)$, then $g$ is more chaotic than $f$
+\end{enumerate}
+
+Now let $f: X \to X$. Entropy will be the exponential growth rate of the number of distinct orbits. We say $\epsilon > 0$ is the ``margin of measurement''.\\
+
+Iterate $n-$times, $x$ and $y$:
+\begin{align*}
+x \to f(x) \to f^2(x) &\to \cdots \to f^{n-1}(x)\\
+y \to f(y) \to f^2(y) &\to \cdots \to f^{n-1}(y)
+\end{align*}
+
+Now define,
+\begin{align*}
+d_n(x,y) &= \max_{k = 0, \cdots, n-1} d(f^k(x), f^k(y))
+\end{align*}
+
+That is, $d_n(x, y)$ denotes the maximum distance between $x$ and $y$ along the orbit segment of length $n$. $d_n$ is also called the Bowen metric.\\
+
+Now let $F \subset X$. Also let $\epsilon > 0$ and $n \in \mathbb{N}$ be fixed. F is called $(n, \epsilon)-$separated if $\forall x, y \in F$ with $x \neq y$, we have $d_n(x, y) \geq \epsilon$.\\
+
+Assume $F_n(\epsilon)$ is a maximal $(n, \epsilon)-$separated set. That is
+\begin{enumerate}[label = \roman*)]
+\item $F_n(\epsilon)$ is $(n, \epsilon)$ separated
+\item if $y \in X \setminus F_n(\epsilon)$, then $I_n(\epsilon) \cup \{y\}$ is not $(n, \epsilon)-$separated
+\end{enumerate}
+
+\textbf{Remark:} Since $X$ is compact, $F_n(\epsilon)$ is finite\\
+
+Now define $h_{\text{top}}(f)$ as,
+\begin{align*}
+h_{\text{top}}(f) &= \lim_{\epsilon \to 0} \overline{\lim_{n \to \infty}} \frac{1}{n} \log \left(\text{cardinality of} \ F_n{\epsilon}\right)
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item Let $r > 0$. Let us define,
+\begin{align*}
+A =  \kbordermatrix{
+    & 0 & 1  \\
+    0 & 1 & 1\\
+    1 & 1 & 1
+  }
+\end{align*}
+
+Then we have that $\Sigma^+_A = \Sigma^+_2$. Hence, let us define $f = \sigma_A$ as our continuous map from $\Sigma^+_2 \to \Sigma_2^+$. Thus, we have that,
+\begin{align*}
+h_{\text{top}}(f) &= h_{\text{top}}(\sigma_A)\\
+&= \log \rho
+\end{align*}
+
+where $\rho$ is the largest eigenvalue of $A$. Note that the two eigenvalues of $A$ are $2$ and $0$. Hence, we have $\rho = 2$ and,
+\begin{align*}
+h_{\text{top}}(f) &= \log 2\\
+&\approx 0.693
+\end{align*}
+
+Now let us use the fact that $2h_{\text{top}}(f) = h_{\text{top}}(f^2)$. Define $g = f^2$. Then we have,
+\begin{align*}
+2h_{\text{top}}(g) &= h_{\text{top}}(g^2)\\
+\end{align*}
+
+But this implies,
+\begin{align*}
+2h_{\text{top}}(f^2) &= 2[2h_{\text{top}}(f)]\\
+&= 4h_{\text{top}}(f)
+\end{align*}
+
+Proceeding by induction, we see that $2^kh_{\text{top}}(f) = h_{\text{top}}(f^{2k})$ for $k \in \mathbb{N}$. Thus, in our case, 
+\begin{align*}
+ h_{\text{top}}(f^{2k}) = 2^k \cdot \log 2
+\end{align*}
+
+Now we need $k$ such that,
+\begin{align*}
+r < 2^k \cdot \log 2
+\end{align*}
+
+which implies,
+\begin{align*}
+&\log_2 \left(\frac{r}{\log 2}\right) < k\\
+\end{align*}
+
+So if we choose $k \in \mathbb{N}$ such that $k > \log_2 \left(\frac{r}{\log 2}\right)$, then we have that,
+\begin{align*}
+h_{\text{top}}(f^{2k}) > r
+\end{align*}
+
+Now let $g = f^{2k} = \sigma_A^{2k}$. We have that $g: \Sigma_2^+ \to \Sigma_2^+$, $g$ continuous, and
+\begin{align*}
+h_{\text{top}}(g) > r
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item Yes, it is possible for a continuous $f: \mathbb{R} \to \mathbb{R}$ to have precisely one periodic orbit. For example, consider $f(x) = x/2$. Clearly this function is continuous on all of $\mathbb{R}$ and $f(0) = 0$, so $0$ has period 1. But observe that, for any $x \neq 0$, we have,
+\begin{align*}
+\cdots < f^3(x) = x/8 < f^2(x) = x/4 < f(x) = x/2 < x
+\end{align*}
+
+Thus, we see that the sequence is $(f^n(x))_{n=0}^{\infty}$ is actually equivalent to 
+\begin{align*}
+(x/2^n)_{n=0}^{\infty}
+\end{align*}
+
+This sequence is strictly decreasing. Hence, for any choice of $x$, there will never be any point $n_1 \in \mathbb{N}$ with $n_1 > 0$ such that $x_{n_1} = x$ since we must have that $x_{n_1} < x$. Since $x \neq 0$ was arbitrary in $\mathbb{R}$, we have shown that there are no periodic points in $\mathbb{R} \setminus \{0\}$. Thus, $0$ is the only periodic point of $f$ and has period $1$.
+\end{enumerate}
+
+\end{document}
