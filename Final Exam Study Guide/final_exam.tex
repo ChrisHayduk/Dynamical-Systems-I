@@ -1,0 +1,868 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathrsfs}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+
+\begin{document}
+
+\title{Dynamical Systems I: Important Definitions, Theorems, Lemmas, Propositions, and Corollaries}
+
+\author{Chris Hayduk}
+\date{\today}
+
+\maketitle
+
+\section{Introduction}
+
+\textbf{Phase space:} space of all possible states: set $X, M, Y, \Omega$, etc. often with a structure:
+\begin{itemize}
+\item Topological space (metric space)
+\item Vector space: $\mathbb{R}^n, \mathbb{C}^n$
+\item Differentiable manifold: $S^1 = \{x \in \mathbb{R}^2: ||x|| = 1 \}$
+\end{itemize}
+
+\textbf{Metric space:} $(X, d)$ is a metric space if:
+\begin{enumerate}
+\item $X \neq \emptyset$
+\item $d: X \times X \to \mathbb{R}_0^+$
+\item $d(x, y) = 0 \iff x = y$
+\item $d(x, y) = d(y, x)$ for all $x, y \in X$
+\item $d(x, y) \leq d(x, z) + d(z, y)$ for all $x, y, z \in X$
+\end{enumerate}
+
+\textbf{Open set:} Let $(X, d)$ be a metric space. $U \subset X$ is open if for all $x \in U$, $\exists r > 0$ such that $B(x, r) = \{y \in X: d(x, y) < r\} \subset U$\\
+
+\textbf{Compact set:} $X$ is a compact set if for every open cover of $X$ there exists a finite subcover.\\
+
+\textbf{Heine-Borel Theorem:} A set $X \subset \mathbb{R}^n$ is compact if and only if $X$ is closed and bounded.\\
+
+\textbf{Topology:} $(X, \tau)$ where $\tau = \{U \subset X: U \text{ open}\}$ is a topology if,
+\begin{enumerate}
+\item $\phi, X \in \tau$
+\item if $U_1, \ldots, U_{\ell} \in \tau$, then $U_1 \cap \cdots \cap U_{\ell} \in \tau$
+\item if $(U_{\alpha})_{\alpha \in I}$ is a family of open sets, then $\bigcup_{\alpha \in I} U_{\alpha}$ is open, i.e., in $\tau$
+\end{enumerate}
+
+\textbf{Continuity at a point:} The following are equivalent to $f: X \to Y$ being continuous at $x_0 \in X$:
+\begin{enumerate}
+\item if $\lim_{n \to \infty} = x_n = x_0$, then $\lim_{n \to \infty} f(x_n) = f(x_0)$
+\item $\lim_{x \to x_0} f(x) = f(x_0)$
+\item $\forall \epsilon > 0, \exists \delta > 0$ such that if $x \in X$ with $d(x, x_0) < \delta$, then $d'(f(x), f(x_0)) < \epsilon$
+\end{enumerate}
+
+A sequence $(x_n)_{n \in \mathbb{N}} \subset X$ converges to $x_0$ if $\forall \epsilon > 0$, $\exists N \in \mathbb{N}$ such that if $n \geq N$, then $d(x_n, x_0) < \epsilon$. We write $\lim_{n \to \infty} x_n = x_0$\\
+
+$f: X \to Y$ is continuous if $\forall U \subset Y$ open, $f^{-1}(U)$ is open in $X$\\
+
+\textbf{Cauchy sequence:} $(X,d)$ metric space. We say $(x_n)_{n \in mathbb{N}} \subset X$ is a Cauchy sequence if $\forall \epsilon > 0$, $\exists N \in \mathbb{N}$ such that $d(x_k, x_n) < \epsilon$ whenever $k, n \geq N$.\\
+
+\textbf{Complete metric space:} $(X, d)$ is a complete metric space if Cauchy sequences converge.\\
+
+\textbf{Fact:} If $(X, d)$ is a complete metric space and $Y \subset X$ is closed, then $(Y, d|_Y)$ is a complete metric space.\\
+
+\textbf{Disconnected set:} $Y \subset X$ is disconnected if there exist $U, V \subset X$ open such that,
+\begin{enumerate}
+\item $U \cap Y, V \cap Y \neq \emptyset$ 
+\item $(U \cap Y) \cap (V \cap Y) = \emptyset$
+\item $(U \cap Y) \cup (V \cap Y) = Y$
+\end{enumerate}
+
+We say that $(U, V)$ is a disconnection of $Y$ in this case.\\
+
+\textbf{Connected set:} $Y \subset X$ is connected if it is not disconnected.\\
+
+\textbf{Theorem:} Let $Y \subset \mathbb{R}$. Then $Y$ is connected if and only if $Y$ is an interval.\\
+
+\textbf{Connected component:} Let $Y \subset X$ and $a \in Y$. Then,
+\begin{align*}
+C_a = \bigcup_{A \subset Y \text{ connected}, a \in A} A
+\end{align*}
+
+is called the connected component of $a$ relative to $Y$. It is ``the largest connected set in $Y$ containing $a$''.\\
+
+\textbf{Cantor sets:} totally disconnected, compact, perfect metric space
+
+\subsection{Review from Advanced Calc I}
+
+Let $D \subset \mathbb{R}$, $x_0 \in D$ be an accumulation point of $D$, i.e., $\forall \epsilon > 0 \exists x \in D$ such that $|x - x_0| < \epsilon$ and $x \neq x_0$.\\
+
+We say $f: D \to \mathbb{R}$ is differentiable at $x_0$ if,
+\begin{align*}
+f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}
+\end{align*}
+
+exists. This definition is equivalent to that $\exists L \in \mathbb{R}$ such that $\forall \epsilon > 0$, $\exists \delta > 0$ such that if $x \in D$ with $0 < |x - x_0| < \delta$, then 
+\begin{align*}
+\left | \frac{f(x) - f(x_0)}{x - x_0} - L \right | < \epsilon
+\end{align*}
+
+$f: D \to \mathbb{R}$ is differentiable if $g$ is differentiable at all $x_0 \in D$\\
+
+If $f'$ is continuous, then we say $f$ is one-times continuously differentiable, we write $f \in C^1(D, \mathbb{R})$\\
+
+Suppose $x \mapsto f(x)$ is k-times differentiable and $x \mapsto f^{(k)}(x)$ is differentiable. We call,
+\begin{align*}
+f^{(k+1)}(x) = \left(f^{(k)}(x) \right)'
+\end{align*}
+
+the (k+1)-th derivative of $f$.\\
+
+If $f$ is k-times differentiable and $f \mapsto f^{(k)}(x)$ is continuous, we say,
+\begin{align*}
+f \in C^k(D, \mathbb{R})
+\end{align*}
+
+If $f \in C^k(D, \mathbb{R}) \forall k \in \mathbb{N}$, then we write $f \in C^{\infty}(D, \mathbb{R})$\\
+
+\textbf{Analytic functions:} $D \subset \mathbb{R}$ open, $f: D \to \mathbb{R}$. We say $f$ is analytic if $\forall x_0 \in D, \exists \epsilon > 0$ and $(a_k)_{k=0}^{\infty} \subset \mathbb{R}$ such that
+\begin{align*}
+f(x) = \sum_{k=0}^{\infty} a_k(x - x_0)^k
+\end{align*}
+
+If this is the case, then $a_k = \frac{f^{(k)}(x_0)}{k!}$.\\
+
+We denote the set of all analytic functions on $D$ by $C^{\omega}(D, \mathbb{R})$.\\
+
+\textbf{Fact:} $C^{\infty}(D, \mathbb{R}) \supset C^{\omega}(D, \mathbb{R})$ but not $C^{\infty}(D, \mathbb{R}) \subset C^{\omega}(D, \mathbb{R})$\\
+
+\textbf{Min-Max Theorem:} Let $f: [a, b] \to \mathbb{R}$ be continuous. Define $m(f) = \inf \{f(x): x \in [a,b]$ and $M(f) = \sup \{f(x): x \in [a, b]\}$. Then $\exists \underline{x}, \overline{x} \in [a, b]$ such that $f(\underline{x}) = m(f)$, $f(\overline{x}) = M(f)$\\
+
+\textbf{Intermediate Value Theorem:} Let $f: [a, b] \to \mathbb{R}$ be continuous and let $m(f) < d < M(f)$. Then $\exists c \in [a,b]$ such that $f(c) = d$.\\
+
+\textbf{Mean Value Theorem:} Let $f: [a, b] \to \mathbb{R}$ be continuous and $f$ differentiable in $(a, b)$. Then $\exists c \in (a, b)$ such that $f'(c) = \frac{f(b) - f(a)}{b - a}$\\
+
+\textbf{Cauchy Mean Value Theorem:} Let $f, g: [a, b] \to \mathbb{R}$ be continuous and differentiable on $(a, b)$. Then $\exists c \in (a, b)$ such that $f'(c)\left(g(b) - g(a) \right) = g'(c) \left( f(b) - f(a) \right)$\\
+
+\textbf{Rolle's Theorem:} Let $f: [a, b] \to \mathbb{R}$ be continuous and differentiable in $(a, b)$. Suppose $f(a) = f(b)$. Then $\exists c \in (a, b)$ such that $f'(c) = 0$.\\
+
+\textbf{One-variable version of Implicit Function Theorem:} Let $U \subset \mathbb{R}^2$ be open and let $P: U \to \mathbb{R}$, $(u, x) \mapsto P(u, x)$ be $C^1$ and suppose that $(u_0, x_0) \in U$ such that $P(u_0, x_0) = 0$. Suppose $\frac{\partial P}{\partial x}(u_0, x_0) \neq 0$. Then $\exists \delta > 0$ and $\epsilon > 0$ such that the equation
+\begin{align*}
+P(u, x) = 0
+\end{align*}
+
+has a unique solution $x = g(u)$ in $|u - u_0| < \delta$ and $|x - x_0| < \epsilon$. Moreover, $g$ is differentiable, and,
+\begin{align*}
+\frac{\partial g}{\partial u} = - \left[ \frac{\partial P}{\partial x} \right]^{-1} \cdot \left[ \frac{\partial P}{\partial u} \right]
+\end{align*}
+
+\textbf{Banach Fixed Point Theorem:} Let $(X, d)$ be a complete metric space and let $f: X \to X$ be a contraction, i.e., $\exists 0 < L < 1$ such that $d(f(x), f(y)) \leq Ld(x,y)$ for all $x, y \in X$. Then $f$ has a unique fixed point.
+
+\newpage
+
+\section{One-Dimensional Dynamics}
+
+\subsection{Intro}
+
+\textbf{Time evolution law:} discrete times $T = \{0, 1, 2, \cdots, \} = \mathbb{N} \cup \{0\}$.  eg. $f: X \to X$ where $X$ is a phase space, then $x_0 \to f(x_0) \to f^2(x_0) = f(f(x_0)) \to f^3(x_0) \to \cdots$\\
+
+\textbf{Forward orbit of $x_0$:} $O^+(x_0) = \{x_0, f(x_0), f^2(x_0), \ldots \}$\\
+
+\textbf{Backward orbit of $x_0$:} If $f$ is invertible, then $f^{-(n+1)}(x_0) = f^{-1}(f^{-n}(x_0))$ and the backward orbit is given by $O^{-}(x_0) = \{x_0, f^{-1}(x_0), f^{-2}(x_0), \ldots \}$\\
+
+\textbf{Fixed point:} A point $x$ is a fixed point of a function $f$ if $f(x) = x$\\
+
+\textbf{Periodic Point:} $f: X \to X$ is a periodic point if $\exists p \in \mathbb{N}$ such that $f^p(x) = x$. $p$ is called the period of $x$ if it is the minimal natural number satisfying $f^p(x) = x$.\\
+
+\textbf{Homeomorphism:} A function $h: X \to Y$ is a homeomorphism if $h$ is bijective, continuous, and $h^{-1}$ is continuous.
+
+\textbf{S. Smale Conjecture:} A ``typical'' higher dimensional system has finitely many periodic points.\\
+
+\textbf{Topologically conjugate:} $f: X \to X$ is topologically conjugate to $\sigma: Y \to Y$ if there exists a homeomorphism $h: X \to Y$ such that $f = h^{-1} \circ \sigma \circ h$. (Note this implies $f^n = h^{-1} \circ \sigma^n \circ h$)\\
+
+\textbf{Chaos:} Let $V$ be a set. $f: V \to V$ is said to be chaotic on $V$ if
+\begin{enumerate}
+\item $f$ has sensitive dependence on initial conditions. That is, $\exists \delta > 0$ such that for any $x \in V$ and any neighborhood $N$ of $x$, there exists $y \in N$ and $n \geq 0$ such that $|f^n(x) - f^n(y)| > \delta$.
+\item $f$ is topologically transitive. That is, $\exists x \in V$ such that the orbit $O(x) = \{f^n(x): n \in \mathbb{N}_0\}$ of $x$ is dense in $V$.
+\item The periodic points of $f$ ($Per(f)$) are dense in $V$
+\end{enumerate}
+
+\subsection{Continuous Time Dynamics in $\mathbb{R}$}
+
+\textbf{Flow:} Let $(X, d)$ be a metric space. A map $\phi: \mathbb{R} \times X \to X$ is called a flow if:
+\begin{enumerate}
+\item $\phi(s + t, x) = \phi(s, \phi(t, x))$ for all $s, t \in \mathbb{R}$ and for all $x \in X$. (called ``flow property'')
+\item for all $t \in \mathbb{R}$, $\phi(t, \cdot) = \phi_t: X \to X$ is a homeomorphism of $X$
+\item $\phi(0, \cdot) = \text{id}_X$
+\end{enumerate}
+
+\subsection{Entropy}
+
+\textbf{Idea:} assign to each dynamical system a positive real number $h_{top}(f)$ where $f: X \to X$ is continuous and $(X, d)$ is a compact metric space such that,
+\begin{enumerate}
+\item if $f$ and $g$ are topologically conjugate then $h_{top}(f) = h_{top}(g)$
+\item if $h_{top}(f) > 0$, then $f$ is chaotic
+\item if $0 < h_{top}(f) < h_{top}(g)$, then $g$ is more chaotic than $f$
+\end{enumerate}
+
+Entropy will be the exponential growth rate of the number of distinc orbits.\\
+
+\textbf{Bowen metric:} $d_n(x,y) = \max_{k = 0, \ldots, n-1} d(f^k(x), f^k(y))$\\
+
+Let $\epsilon > 0$, $n \in \mathbb{N}$ be fixed. $I \subset X$ is called $(n, \epsilon)-$separated if $\forall x, y \in I$ with $x \neq y$, we have $d_n(x, y) \geq \epsilon$. Assume $I_n(\epsilon)$ is a \textit{maximal} $(n, \epsilon)-$separated set, i.e.,
+\begin{enumerate}
+\item $I_n(\epsilon)$ is $(n, \epsilon)-$separated
+\item if $y \in X \setminus I_n(\epsilon)$, then $I_n(\epsilon) \cup \{y\}$ is not $(n, \epsilon)-$separated.
+\end{enumerate}
+
+\textbf{Remark:} Since $X$ is compact, $I_n(\epsilon)$ is finite.\\
+
+\textbf{Entropy:} $h_{top}(f) = \lim_{\epsilon \to 0} \limsup_{n \to \infty} \frac{1}{n} \log \left( \text{card } I_n(\epsilon)\right)$\\
+
+Example: card $I_n(\epsilon) = 2^n \implies \frac{1}{n} \log 2^n = \log 2 \implies h_{top}(f) = \log 2$
+
+\subsection{Attractors and repellers}
+
+From now on, $f$ is a $C^2$-function. $f: X \to X$, $X \subset \mathbb{R}$ an interval ($X = [a,b]$). Suppose $f(a) = a$, $a \in X$. We say $a$ is \textbf{attracting} if $|f'(a)| < 1$ (stable fixed point) and if $f'(a) = 0$, we say $a$ is \textbf{superattracting}.\\
+
+$a$ is \textbf{repelling} if $|f'(a)| > 1$. If $a$ is either attracting or repelling we say $a$ is \textbf{hyperbolic}.\\
+
+Now let $a \in X$ be an attracting fixed point. Define the \textbf{stable set} of $a$ by,
+\begin{align*}
+W^s(a) = \{x \in X: f^n(x) \to a as n \to \infty\}
+\end{align*}
+
+\text{Fact:} $W^s(a)$ is open set containing $a$.\\
+
+\textbf{Lemma:} $\exists \epsilon > 0$ such that $B(a, \epsilon) \subset W^s(a)$\\
+
+\textbf{Corollary:} $W^s(a) = \bigcup_{n \in \mathbb{N}} f^{-n}(B(a, \epsilon))$\\
+
+\textbf{Definition:} $W^s_{loc}(a)$ is the connected component of $W^s(a)$ containing $a$. It is called the \textit{immediate basin of attraction} of $a$.\\
+
+\textbf{Higher period orbits:} $a \in Per_p(f) \iff f^p(a) = a$ and $f^k \neq a$ for all $k = 1, \ldots, p-1$. We say $a$ is attracting if it is an attracting fixed point of $f^p$ (that is, $|(f^p)'(a)| < 1$.\\
+
+$W^s(a) = \{x: \lim_{n \to \infty} |f^n(a) - f^n(a)| = 0\}$\\
+
+$W^s(a) = W^s(f^p, a)$\\
+
+If $a$ is attracting withe period $p$, then $f(a), \ldots, f^{p-1}(a)$ are also attracting with period $p$.\\
+
+$W^s(f(a)) = f(W^s(a))$\\
+
+\textbf{Fact:} If $a$ is attracting fixed point, $f(W^s(a)) = f^{-1}(W^s(a)) = W^s(a)$, i.e. ``stable set is $f$-invariant''\\
+
+$f(W^s_{loc}(a)) = W^s_{loc}(a)$\\
+
+\textbf{Definition:} We say $c$ is a critical point of $f$ if $f'(c) = 0$. We say the critical point $c$ is non-degenerate if $f''(x) \neq 0$, otherwise degenerate.\\
+
+Two types of attracting fixed points:
+\begin{enumerate}
+\item Orientation preserving: $0 < f'(a) < 1$
+\item Orientation reversing: $-1 < f'(a) < 0$
+\end{enumerate}
+
+\textbf{Theorem:} $f: \mathbb{R} \to \mathbb{R}$ continuous, $\exists$ periodic point of prime period $3$. Then $\exists$ periodic points of any other period.\\
+
+\textbf{Sarkovskii's Theorem:} Order periods in the following manner:
+\begin{align*}
+3 \triangleright 5 \triangleright 7 \triangleright \cdots 2 \cdot 3 \triangleright 2 \cdot 5 \triangleright 2 \cdot 7 \triangleright \cdots \triangleright 2^2 \cdot 3 \triangleright 2^2 \cdot 5 \triangleright 2^3 \cdot 7 \triangleright \cdots \triangleright 2^3 \cdot 3 \triangleright 2^3 \cdot 5 \triangleright 2^3 \cdot 7 \triangleright \cdots
+\end{align*}
+
+Now let $f: \mathbb{R} \to \mathbb{R}$ be continuous. If $k \triangleright \ell$ in the order above and if $f$ has a periodic point of prime period $k$, then $f$ has a periodic point of prime period $\ell$.\\
+
+\textbf{Corollary:} Let $f: \mathbb{R} \to \mathbb{R}$ be continuous and suppose $f$ has finitely many periodic points. Then all these periods are powers of $2$.
+
+\subsection{The Logistic Family}
+
+For every $\mu$ we consider the dynamical system $f_{\mu}: \mathbb{R} \to \mathbb{R}$, $f_{\mu}(x) = \mu x (1-x)$.\\
+
+This is a ``model in population dynamics''. $0 \leq x \leq 1$, the function gives the percentage of max possible population.\\
+
+For $0 < \mu < 1$, the only fixed point in $[0, 1]$ is $f(0) = 0$. For every $x \in [0, 1]: f^n(x) \to 0$ as $n \to \infty$.\\
+
+$0$ is an attracting fixed point since $|f'(0) < 1$. $1$ is eventually periodic.\\
+
+$\frac{\mu - 1}{\mu}$ is a fixed point in $(0, 1)$ whenever $\mu > 1$.\\
+
+\textbf{Proposition:} If $\mu > 1$ and $x \in [0,1]$, then $f_{\mu}^n(x) \to -\infty$ as $n \to \infty$.\\
+
+\textbf{Proposition:} Let $1 < \mu < 3$:
+\begin{enumerate}[label=(\alph*)]
+
+\item $f_{\mu}$ has an attracting fixed point $p_{\mu} = \frac{\mu - 1}{\mu}$ and repelling fixed point $0$
+\item if $0 < x < 1$, then $\lim_{n \to \infty} f^n_{\mu}(x) = p_{\mu}$. That is, $W^s_{loc}(p_{\mu}) = (0, 1)$
+
+\end{enumerate}
+
+\textbf{For $\mu > 4$:}\\
+
+\textbf{Theorem:} There exists Cantor set $C \subset [0, 1]$ such that if $x \in \mathbb{R} \setminus C$, then $|f^n(x)| \to \infty$ and $C$ is $f$-invariant, i.e., $f(C) = C = f^{-1}(C)$ where $f^{-1}(C) = \{x \in \mathbb{R}: f(x) \in C\}$. $f|_C$ is chaotic
+
+\subsection{Bifurcation Theory}
+
+``Change of the behavior in family of dynamical systems''
+
+$f_{\lambda}: I \to I, \lambda$ in some interval
+\begin{enumerate}
+\item for $\lambda$ fixed, $f_{\lambda}$ is a $C^{\infty}$ map
+\item $f_{\lambda}$ depends smoothly on $\lambda$ ``$(\lambda, x) \mapsto f_{\lambda}(x)$ is at least $C^1$-map''
+\end{enumerate}
+
+\textbf{Goal:} Hyperbolic periodic orbits are preserved\\
+
+\textbf{Theorem:} Let $(f_{\lambda})_{\lambda}$ be a smooth family of $C^{\infty}$ maps on an interval $I \subset \mathbb{R}$. Suppose $\lambda_0$ has the property that $f_{\lambda_0}$ has a hyperbolic periodic point $\alpha_{\lambda_0}$ of prime period $p$ (i.e. $|(f^p)'(\alpha_{\lambda_0})| \neq 1$. Then $\exists \epsilon > 0$ such that $\forall \lambda \in (\lambda_0 - \epsilon, \lambda_0 + \epsilon)$, $f_{\lambda}$ has a periodic point $\alpha_{\lambda}$ with prime period $p$. Moreover, $\lambda \mapsto \alpha_{\lambda}$ is a $C^1$-map. Moreover, by making $\epsilon$ smaller if necessary, we can assure that $\alpha_{\lambda}$ is hyperbolic for all $\lambda \in (\lambda_0 - \epsilon, \lambda_0 + \epsilon)$\\
+
+Now consider the logistic family, $f_{\mu}(x) = \mu x (1-x)$. For $0 < \mu < 1$: one periodic point which is a fixed point. For $2 + \sqrt{5} < \mu$: $|Per_n(f)| = 2^n$ and $Per(f)$ is dense in $[0, 1]$.\\
+
+\textbf{Saddle Node Bifurcation Theorem:} Suppose
+\begin{enumerate}
+\item $f_{\lambda_0}(0) = 0$
+\item $f'_{\lambda_0}(0) = 1$
+\item $f''_{\lambda}(0) \neq 0$
+\item $\frac{\partial f_{\lambda}}{\partial \lambda}|_{\lambda = \lambda_0} (0) \neq 0$
+\end{enumerate}
+
+Then $\exists$ interval $I$ about $0$ and a smooth function $p: I \to \mathbb{R}$ with $p(0) = \lambda_0$ such that $f_{p(x)}(x) = x$ and $p'(0) = 0$, $p''(0) \neq 0$.\\
+
+The signs in (3) and (4) determine the opening direction.\\
+
+\textbf{Period Doubling Bifurcation:} Let $G(x, \lambda) = f_{\lambda}(x) - x$, $G(0, \lambda_0) = 0$. $0$ is a fixed point of $f_{\lambda_0}$. $(x, \lambda) \mapsto f_{\lambda}(x) \in C^3$, $L(\lambda) = f'(0, \lambda)$. Assumption:
+\begin{enumerate}[label=(\alph*)]
+
+\item $f_{\lambda_0}(0) = -1$
+
+\item $\frac{\partial L}{\partial \lambda}(\lambda_0) > 0$
+
+\item $2 \frac{\partial^3 f_{\lambda}}{\partial x^3}(\lambda_0, 0) + 3\left(\frac{\partial^2 G}{\partial x^2}(\lambda_0, 0)\right) > 0$
+
+\end{enumerate}
+
+Then $\exists$ non-empty intervals $(\lambda_1, \lambda_0)$ and $(\lambda_0, \lambda_2)$ such that,
+\begin{enumerate}
+\item if $\lambda \in (\lambda_0, \lambda_2)$ then $f$ has a repelling fixed point and an attracting $2$-cycle in $(-\epsilon, \epsilon)$.
+\item if $\lambda \in (\lambda_1, \lambda_0)$, then $f_{\lambda}$ has one attracting fixed point on $(-\epsilon, \epsilon)$.
+\end{enumerate}
+
+\newpage
+\section{Complex Dynamics}
+
+\subsection{Introduction to Complex Analysis}
+
+$\mathbb{C} = \{z = a + ib : a,b \in \mathbb{R}\}$ where $i^2 = -1$\\
+
+Let $z = a_1 + ib_1, w = a_2 + ib_2$. Then addition and multiplication are defined as,
+\begin{align*}
+z + w &= (a_1 + a_2) + i(b_1 + b_2)\\
+z \cdot w &= (a_1a_2 - b_1b_2) + i(a_1b_2 + a_2b_1)
+\end{align*}
+
+$(\mathbb{C}, +, \cdot)$ is a field. $\mathbb{C}$ is a $\mathbb{C}$-vector space\\
+
+$|z| = \sqrt{a^2 + b^2}$\\
+
+$z = |z| \cdot e^{2 \pi i \rho}$ for some $\rho \in [0, 1)$.\\
+
+We can compactify $\mathbb{C}$ by using the one-point compactification:
+\begin{align*}
+\overline{\mathbb{C}} = \mathbb{C} \cup \{\infty\}
+\end{align*}
+
+We say $U$ is a neighborhood of $\infty$ if it is $\{\infty\}$ union a complement of a compact set in $\mathbb{C}$\\
+
+$\overline{\mathbb{C}}$ with this topology is called the Riemann sphere\\
+
+\textbf{Fact:} $\overline{\mathbb{C}} = \mathbb{C} \cup \{\infty\}$ is compact\\
+
+\textbf{Definition:} Let $D \subset \mathbb{C}$ be open, $f: D \to \mathbb{C}$ be a function. Let $z_0 \in D$. We say $f$ is complex differentiable at $z_0$ if 
+\begin{align*}
+\lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}
+\end{align*}
+
+exists and we call this limit $f'(z_0)$\\
+
+\textbf{Definition:} We say $f$ is \textit{holomorphic} on $D$ if $f$ is complex differentiable at all $z_0 \in D$.\\
+
+$f(a+ ib) = u(a, b) + iv(a, b)$. $u(a, b) = Re(f(z)), iv(a,b) = Im(f(z))$\\
+
+\textbf{Fact:} $f$ is holomorphic in $D$ if and only if the partial derivatives of $u$ and $v$ exist and are continuous and satisfy
+\begin{align}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \ \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\end{align}
+
+$f: D \to \mathbb{C}$ is analytic if for all $\forall z_0 \in D \exists r > 0$ such that,
+\begin{align*}
+f|_{B(z_0, r)} = \Sigma_{k=0}^{\infty} a_k (z - z_0)^k
+\end{align*}
+
+where $a_k = \frac{f^{(k)}(z_0)}{k!}$. In particular, $f$ analytic implies $f$ is $C^{\infty}$.\\
+
+\textbf{Fact:} The following are equivalent:
+\begin{enumerate}[label=(\alph*)]
+
+\item $f$ holomorphic on $D$
+\item $f$ analytic on $D$
+\end{enumerate}
+
+\textbf{Results:}
+\begin{enumerate}[label=(\alph*)]
+
+\item Cauchy's Integral Formula: $f$ holomorphic, $\gamma$ rectifiable, curve simply connected $\implies \int_{\gamma} f(z) dz = 0$
+
+\item $f'(z_0) = \frac{1}{2\pi i} \int_{\gamma}\frac{f(z)}{(z-z_0)^2}dz$
+
+\item Identity Theorem: Suppose $D \subset \mathbb{C}$ is open and connected, let $g, f: D \to \mathbb{C}$ be holomorphic. Suppose $\exists z_0 \in D$ and $r > 0$ such that $f|_{B(z_0, r)} = g|_{B(z_0, r)}$. Then $f = g$.
+\end{enumerate}
+
+\subsection{Introduction to Complex Dynamics}
+
+\textbf{Normal families:} $D \subset \mathbb{C}$ open: $\mathcal{F} \subset \{f: D \to \mathbb{C} : f \text{ hol }\} = Hol(D)$\\
+
+$\mathcal{F}$ is normal if $\forall$ sequences $(f_n)_n \subset \mathcal{F} \; \exists$ subsequence $(f_{n_k})_{k \in \mathbb{N}}$ which converges uniformly on compact subsets of $D$.\\
+
+$f_{n_k} \to f: D \to \mathbb{C}$ for all $K \subset D$ compact $\forall \epsilon > 0$ $\exists N \in \mathbb{N}$ such that if $n_k \geq N$ we have $|f_{n_k}(z) - f(z)| < \epsilon \ \forall z \in K \implies f$ is also holomorphic.\\
+
+Convergence to $\infty$ is also possible.\\
+
+\textbf{Montel's theorem:} Let $\mathcal{F} \subset Hol(D)$. Then,
+\begin{enumerate}[label=(\alph*)]
+
+\item $\mathcal{F}$ is normal if $\{f(D): f \in \mathcal{F}$ is bounded
+
+\item $\mathcal{F}$ is normal if $|\mathbb{C} \setminus \{f(D): f \in \mathcal{F}\}| \geq 2$ (This the Big Theorem of Montel)
+
+\end{enumerate}
+
+\subsection{Julia and Fatou Sets}
+
+\textbf{Main idea:} Split up $\mathbb{C}$ into two sets $J$ ad $F$ such that $f|_J$ is chaotic and $f|_F$ is stable. We call $J$ the Julia set of $f$ and $F$ the Fatou set of $f$.\\
+
+\textbf{Definition:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial with degree $d \geq 2$. Then we call $F_{f} = \{z \in \mathbb{C}: \{f^n : n \in \mathbb{N}\} \text{ is normal in a neighborhood of z}\}$ the Fatou set of $f$.\\
+
+We call $\mathbb{C} \setminus F_{f} = J_{f}$ the Julia set $f$.\\
+
+\textbf{Lemma:} $F_f$ is open and $J_f$ is closed.\\
+
+$f$ is holomorphic if one of the following holds:
+\begin{enumerate}[label=(\alph*)]
+
+\item $f$ is complex differentiable at all $z \in D$
+
+\item $f$ has continuous partial derivatives and satisfies equation $(1)$ from Section 3.1 above
+
+\item $f$ is analytic
+
+\end{enumerate}
+
+Often $D$ domain means $D$ open and connected\\
+
+\textbf{Big Theorem of Montel:} If $\exists \alpha, \beta \in \mathbb{C}$ such that $\bigcup_{f \in \mathcal{F}} f(D) \subset \mathbb{C} \setminus \{\alpha, \beta\}$, then $\mathcal{F}$ is normal.
+
+\subsection{Polynomials}
+
+\textbf{Proposition:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial of degree $d \geq 2$. Then $\exists r > 0$ such that if $z \in \mathbb{C}$ with $|z| > r$ then $f^n(z) \to \infty$ as $n \to \infty$.\\
+
+\textbf{Claim:} $W^s(\infty) \neq \mathbb{C}$, i.e. all periodic points cannot converge to $\infty$ and $f(z)$ has $d$ fixed points counted by multiplicity.\\
+
+\textbf{Definition:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial of degree $d \geq 2$. We call $K = K_f = \{z: \{f^n(z): n \in \mathbb{N}\} \text{ is bounded}\}$ the filled-in Julia set of $f$\\
+
+\textbf{Theorem:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial of degree $d \geq 2$. Then $J_f = \partial W^s(\infty) = \partial K_f$\\
+
+\textbf{Corollary:} If $f: \mathbb{C} \to \mathbb{C}$ is a polynomial of degree $d \geq 2$, then $J_f \neq \emptyset$\\
+
+\textbf{Definition:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial of degree $d \geq 2$. If $f(z) = z$, then we say,
+\begin{itemize}
+\item $z$ is attracting if $|f'(z)| < 1$
+
+\item $z$ is repelling if $|f'(z)| > 1$
+
+\item $z$ is parabolic if $f'(z) = e^{2 \pi i q}$ for some $q \in \mathbb{Q}$
+
+\item elliptic if $f'(z) = e^{2 \pi i \rho}$ for some $\rho \in [0, 1) \setminus \mathbb{Q}$
+\end{itemize}
+
+\textbf{Proposition:} Let $f: \mathbb{C} \to \mathbb{C}$ be a polynomial of degree $d \geq 2$. Let $z \in Per_n(f)$. Then,
+\begin{itemize}
+\item if $z$ is attracting, then $z \in F_f$
+\item if $z$ is repelling, then $z \in J_f$
+\end{itemize}
+
+\textbf{Theorem:} $J_f$ and $F_f$ are completely invariant sets (that is, $J_f = f(J_f) = f^{-1}(J_f)$ and $F_f = f(F_f) = f^{-1}(F_f)$\\
+
+\textbf{Fatou component:} We define $C_z(F_f)$ as the connected component of $F_f$ which contains $z$ and call it a Fatou component. The exact defintion for $C_z(F_f)$ is:
+\begin{align*}
+C_z(F_f) = \bigcup_{U \subset F_f \text{ connected}, \ z \in U} U
+\end{align*}
+
+$C_z(F_f)$ is the largest connected subset of $F_f$ which contains $z$.\\
+
+\textbf{Lemma:} If $C$ is a Fatou component, then $f(c)$ is also a Fatou component.\\
+
+\textbf{Possibilities for Fatou Set:}
+\begin{enumerate}[label=(\alph*)]
+
+\item Periodic Fatou Component: $\exists n \in \mathbb{N}$ such that $f^n(C) = C$
+
+\item Preperiodic Fatou Component: $\exists n \geq 1$ such that $f^n(C)$ is periodic and $C, \ldots, f^{n-1}(C)$ is not periodic
+
+\item Wandering Fatou Component: $f^i(C) \cap f^j(C) = \emptyset$ for all $i, j \in \mathbb{N}_0$ with $i \neq j$\\
+\end{enumerate}
+
+\textbf{Conjecture:} There are no wandering Fatou components.\\
+
+\textbf{Theorem (Sullivan, 1983):} Absence of wandering Fatou components for rational maps\\
+
+\textbf{Theorem:} If $C$ is a periodic Fatou component, then $C$ is one and only of the following types:
+\begin{enumerate}
+\item $C$ is immediate basin of attraction of an attracting fixed point
+\item $C$ is a parabolic domain
+\item $C$ is Siegel disk
+\item $C$ is a Herman ring
+\end{enumerate}
+
+\textbf{Proposition:} Let $z$ be a periodic point of period $p \in \mathbb{N}$ and suppose $z$ is attracting (i.e. $|(f^p)'(z)| < 1$. Then $\exists r > 0$ such that if $w \in B(z, r)$ then $(f^p)^n(w) \to z$ as $n \to \infty$\\
+
+\textbf{Basin of attraction:} The basion of attraction of the attracting fixed point $z$ is given by $W^s(z) = \{w \in \mathbb{C}: f^n(w) \to z \text{ as } n \to \infty\} = \bigcup_{n \in \mathbb{N}} f^{-n}(B(z, r))$\\
+
+We define $W_{\epsilon}^s(z)$ to be the connected component of $W^s(z)$ which contains $z$. We call $W_{\epsilon}^s(z)$ the immediate basin of attraction.\\
+
+\textbf{Claim:} $f(W_{\epsilon}^s(z)) = W^s_{\epsilon}(z)$\\
+
+We can also define the basin of attraction of $z$ by
+\begin{align*}
+W^s(z) = \{w \in \mathbb{C}: |f^n(w) - f^n(z)| \to 0 \text{ as } n \to \infty\}
+\end{align*}
+
+\textbf{Theorem:} $f$ is hyperbolic if and only if all critical points of $f$ are contained in the basins of attraction of attracting periodic cycles including $\infty$. Moreover, every basin of attraction of an attracting periodic orbit contains at least one critical point.\\
+
+\textbf{Corollary:} Let $f(z) = z^2 + c$, $c \in \mathbb{C}$. Then $0$ is the only critical point of $f$. Therefore, if $f$ has an attracting periodic orbit, then $f$ is hyperbolic.\\
+
+\textbf{Fact:} $J_f \neq 0$, uncountable, perfect (without isolated points), transitive, $J_f = \overline{\text{Rep Per}(f)}$\\
+
+\textbf{Lemma:} Let $z \in \mathbb{C}$ be a repelling periodic point with period $p$. Then $z \in J_f$.\\
+
+$c \in \mathbb{C}$ is a critical point of $f$ if $f'(c) = 0$. In that case, we call $f(c)$ a critical value.\\
+
+\textbf{Theorem:} Critical points
+\begin{enumerate}[label=(\alph*)]
+
+\item $J_f$ is connected if and only if all critical points have bounded orbits
+
+\item $f$ is hyperbolic if and only if all critical points are contained in immediate basin of attraction (including infinity)
+
+\end{enumerate}
+
+\textbf{Corollary:} If $f(z) = z^2 + c, c \in \mathbb{C}$ then $f$ is hyperbolic if and only if either $0 \in W^s(\infty)$ or $f$ has an attracting periodic orbit
+
+\subsection{Hausdorff Dimension}
+
+Let $K \subset \mathbb{C}$ be a set, $\delta > 0$. We say $\{D_i: i \in \mathbb{N}\}$ is a $\delta$-cover of $K$ if
+\begin{enumerate}
+\item $D_i$ are balls of diameter less than or equal to $\delta$
+
+\item $K \subset \cup_i D_i$
+\end{enumerate}
+
+Let $s \in [0, 2]$. We define,
+\begin{align*}
+H^s_{\delta}(K) = \inf \{\Sigma_{i \in \mathbb{N}}(\text{diam}(D_i))^s : (D_i)_i is \delta-\text{cover of } K\}
+\end{align*}
+
+Define $H^s(K) = \lim_{\delta \to 0} H^s_{\delta}(K) \in [0, \infty]$. $H^s(K)$ is called the s-dimensional outer Hausdorff measure of $K$.\\
+
+If $s > \alpha$, then $H^s(K) = 0$. If $s < \alpha$, then $H^s(K) = \infty$\\
+
+We call $\alpha$ the Hausdorff dimension of $K$ ($HD(K)$).\\
+
+We can define $HD(K)$ in the following ways:
+\begin{align*}
+HD(K) &= \inf \{s \geq 0 : H^s(K) = 0\}\\
+HD(K) &= \sup \{s \geq 0 : H^s(K) = \infty \}
+\end{align*}
+
+\textbf{Basic facts of $H^s(K)$:}
+\begin{enumerate}
+
+\item If $H^s(K) < \infty$, then $H^{s'}(K) = 0$ for all $s' > s$
+
+\item If $H^s(K) = \infty$, then $H^{s'}(K) = \infty$ for all $s' < s$
+
+\item $H^0(K)$ is the cardinality of $K$
+
+\item $H^s(a+K) = H^s(K)$ for all $a \in \mathbb{R}^n$ and $H^s(tA) = t^s H^s(A)$ for all $t \geq 0$ where $a + K = \{a + x: x \in K\}$ and $tK = \{tx: x \in K\}$
+
+\item If $K$ has non-empty interior, then $H^n(K) = C(n) \cdot \text{vol}(K)$ where $C(n) = \frac{2^n}{\text{Vol}(B(0,1))}$
+
+\item If $s > n$, then $H^s(K) = 0$
+\end{enumerate}
+
+\newpage
+\section{Symbolic Dynamics}
+
+\subsection{Intro and Full Shift} 
+
+\textbf{Full shift:} $\Sigma_{\mathcal{A}} = \{x = (x_k)_{k \in \mathbb{Z}}: x_k \in \mathcal{A}\}$. $\mathcal{A}$ is called the alphabet of the full shift.\\
+
+A special case of the full shift is $\Sigma_d$, where the alphabet is given by $\{0, 1, \ldots, d-1\}$\\
+
+$0 < \theta < 1$,
+\begin{align*}
+d(x, y) = d_{\theta}(x, y) = \begin{cases} 
+      0 & x = y \\
+      \theta^{\min\{|k|: x_k \neq y\}} & x \neq y
+   \end{cases}
+\end{align*}
+
+\textbf{Fact:} $(\Sigma_d, d_{\theta})$ compact metric space\\
+
+\textbf{Word:} For all $n \in \mathbb{N}_0$ we call the $n-$tuple $w = w_1 \cdot w_n$, $w_i \in \mathcal{A}$ a word in $\Sigma_{\mathcal{A}}$ of length $n$. The empty word $\epsilon$ has length $0$.\\
+
+If $i \leq j \in \mathbb{Z}$, we write $x_{[i, j]} = x_ix_{i+1} \cdots x_j$. If $i > j$, then $x_{[i, j]}$ is the empty word $\epsilon$. Note that $|x_{[i, j]}| = j-i+1$.\\
+
+\textbf{Subword:} Let $w = w_1 \cdots w_n$ be a word of length $n$ and let $1 \leq i \leq j \leq n$. Then $v = w_i w_{i+1} \cdots w_j$ is a subword of $w$.\\
+
+If $w = w_1 \cdots w_n$ and $v = v_1 \cdots v_m$ are words of length $n$ and $m$ respectively, we define the concatenation of $w$ and $v$ as $wv = w_1 \cdots w_nv_1 \cdots v_m$ and hence $|wv| = n+m$.\\
+
+For all $k \in \mathbb{N}$ we write $w^k = w w \cdots w$, $w^{\infty} = www\cdots$, $^{\infty}w = \cdots www$\\
+
+\textbf{Shift map:} We define the (left) shift map on $\Sigma_{\mathcal{A}}$ denoted by $\sigma$ as $(\sigma(x))_k = x_{k+1}$ for all $k \in \mathbb{Z}$.\\
+
+\textbf{Entropy of shift map:} If $\sigma: \Sigma_b \to \Sigma_b$ is the shift map on the alphabet with $b$ symbols, then $h_{top}(\sigma) = \log b$.\\
+
+\textbf{Entropy from transition matrix:} If $A$ is the transition matrix of a subshift of finite type, then $h_{top}(\sigma_A) = \log \zeta$ where $\zeta$ is the largest eigenvalue of $A$.\\
+
+\textbf{Proof of entropy of shift map:} Now let $\Sigma_b = \{x = (x_k)_{k= -\infty}^{+ \infty} : x_k \in \{0, \ldots, b-1\}\}$ and define $\sigma(x)_k = x_{k+1}$. Fix $\theta \in (0, 1)$ and define $d_{\theta}$ as above. Define $\epsilon_k = \theta^k$. Then,
+\begin{align*}
+d(x, y) \geq \epsilon_k &\iff x_i \neq y_i \text{ for some } i \in \{-k, \ldots, k\}\\
+d(\sigma(x), \sigma(y)) \geq \epsilon_k &\iff x_i \neq y_i \text{ for some } i \in \{-k+1, \ldots, k+1\}\\
+&\vdots\\
+d(\sigma^{n-1}(x), \sigma^{n-1}(y)) \geq \epsilon_k &\iff x_i \neq y_i \text{ for some } i \in \{-k+n-1, \ldots, k+n+1\}
+\end{align*}
+
+Thus, we have that,
+\begin{align*}
+d_n(x, y) \geq \epsilon_k \text{ if } x_i \neq y_i \text{ for some } i \in \{-k, \ldots, k+n-1\}
+\end{align*}
+
+The length of this segment ($\{-k, \ldots, k+n-1\}$) is $2k + n$, so $|I_n(\epsilon_k) = b^{2k+n}$. Thus,
+\begin{align*}
+\limsup_{n \to \infty} \log b^{2k+n} &= \limsup_{n \to \infty} \left( \frac{2k}{n} \log b \right) + \limsup_{n \to \infty} \left(\frac{n}{n} \log b \right)\\
+&= \log b
+\end{align*}
+
+Thus,
+\begin{align*}
+h_{top}(\sigma) &= \lim_{\epsilon_k \to 0} \log b = \log b
+\end{align*}
+
+\textbf{Cylinder set} ($\epsilon_k = \theta^{k+1}, k \in \mathbb{N}, \epsilon > 0$):
+\begin{align*}
+B(x, \epsilon_k) &= \{y \in \Sigma : d(x, y) < \epsilon_k\}\\
+&= \{y \in \Sigma: y_{-k} = x_{-k}, y_{-k+1} = x_{-k+1}, \cdots, y_{k} = x_{k}\}\\
+&= [x]_{-k}^k\\
+&= C_{-k, k}(x)
+\end{align*}
+
+\textbf{Fact:} $C_{-k, k}$ is open and closed (clopen).\\
+
+\textbf{Corollary:} $\Sigma_{\mathcal{A}}$ is totally disconnected.\\
+
+\textbf{Shift space:} We say $X \subset \Sigma_{\mathcal{A}}$, $X \subset \Sigma_{\mathcal{A}}$ is a shift space if $X$ is closed and $\sigma$ invariant, in the case of the one-sided shift this means $\sigma(X) = X$. In the case of the two-sided shift space, this means $\sigma(X) = X = \sigma^{-1}(X)$.\\
+
+We call $(X, \sigma|_X)$ a subshift.
+
+\subsection{One-Sided Shift Map}
+
+$b \in \mathbb{N} \setminus \{1\}$\\
+
+$\Sigma^+ = \Sigma_b^+ = \{x = (x_k)_{k=0}^{\infty} : x_k \in \{0, \ldots, b - 1\}$\\
+
+\textbf{Shift map:} $\sigma((x_k)_{k=0}^{\infty}) = (x_{k+1})_{k=0}^{\infty}$. We are ``cutting off the first element in the sequence"\\
+
+$\sigma$ is b-to-one. That is, $|\sigma^{-1}(x)| = b$.\\
+
+Let $0 < \theta < 1$. Then the distance metric (similarly to the full shift) is given by,
+\begin{align*}
+d(x, y) = d_{\theta}(x, y) = \begin{cases} 
+      0 & x = y \\
+      \theta^{\min\{k: x_k \neq y\}} & x \neq y
+   \end{cases}
+\end{align*}
+
+\textbf{Fact:} $\sigma$ is chaotic.\\
+
+\textbf{Definition:} $X \subset \Sigma_b^+$ is a subshift if
+\begin{enumerate}[label=(\alph*)]
+\item $\sigma(x) \in X$ for all $x \in X$
+
+\item $X$ is closed
+\end{enumerate}
+
+$\mathcal{L}_n(X) = \{\text{words of length n that occur in at least one } x \in X\}$\\
+
+$\mathcal{L}(X) = \cup_{n \in \mathbb{N}} \mathcal{L}_n(X)$\\
+
+``$\mathcal{L}(X)$ is called the language of $X$''\\
+
+\textbf{Definition:} $\mathcal{L} \subset \mathcal{L}(\Sigma_b^+)$ is a language if
+\begin{enumerate}[label=(\alph*)]
+
+\item if $w \in d$ and $v$ is a subword of $w$ then $v \in \mathcal{L}$
+
+\item if $w \in \mathcal{L}$ then $\exists a \in \{0, \ldots, b-1\}$ such that $wa \in \mathcal{L}$
+
+\end{enumerate}
+
+\textbf{Theorem:} If $\mathcal{L}$ is a language, then $\exists$ unique subshift $X$ such that $\mathcal{L}(X) = \mathcal{L}$\\
+
+\textbf{Theorem:} $h_{top}(\sigma|_X) = \lim_{n \to \infty} \frac{1}{n} \log | \mathcal{L}_n(X)|$
+
+\subsection{Languages}
+
+Let $X \subset \Sigma_{\mathcal{A}}$ be a shit space. We define $\mathcal{L}_n(X) = \{w : w \text{ is a word of length } n \text{ that occurs in some } x \in X\}$. Note that $\mathcal{L}_0(X) = \{\epsilon\}$. \\
+
+We call,
+\begin{align*}
+\mathcal{L}(X) = \bigcup_{n \in \mathbb{N}_0} \mathcal{L}_n(X)
+\end{align*}
+
+the \textbf{language} of the shift space $X$.\\
+
+On the other hand, we say $\mathcal{L} \subset \mathcal{L}(\Sigma_{d}) = \{w_1 \cdots w_n : n \in \mathbb{N}_0, w_i \in \{1, \ldots, d-1\}\}$ is a language if the following hold,
+\begin{enumerate}
+\item If $w \in \mathcal{L}$ and $v$ is a subword of $w$, then $v \in \mathcal{L}$
+
+\item For all $w \in \mathcal{L}$, $\exists i \in \{0, \ldots, d-1\}$ such that $wi \in \mathcal{L}$
+
+\item For all $w \in \mathcal{L}$, $\exists j \in \{0, \ldots, d-1\}$ such that $jw \in \mathcal{L}$
+\end{enumerate}
+
+The same notions hold for languages of one-sided shift spaces with the exception that $(3)$ is not needed.\\
+
+\textbf{Proposition:} Let $\mathcal{L} \subset \mathcal{L}(\Sigma_{\mathcal{A}})$ be a language. Then,
+\begin{align*}
+X_{\mathcal{L}} = \{x \in \Sigma_{\mathcal{A}}: x_i \cdots x_j \in \mathcal{L} \text{ for all } i, j \in \mathbb{Z}\}
+\end{align*}
+
+is a shift space whose language is $\mathcal{L}$.\\
+
+Now fix $d \geq 2$. We define,
+\begin{align*}
+\Sigma_{cs} = \{X \subset \Sigma_{\mathcal{A}}: X \text{ shift space }\}
+\end{align*}
+
+
+Here ``cs'' stands for closed and shift invariant.\\
+
+We define the \textbf{lexicographic order} on $L = \mathcal{L}(\Sigma_{\mathcal{A}})$. Let $v, w \in L$:
+\begin{itemize}
+\item If $v = \epsilon$ and $w \neq \epsilon$, then $v < w$
+
+\item If $|v| < |w|$, then $v < w$
+
+\item If $|v| = |w|$, define $k = \min \{k : v_k \neq w_k\}$. We define $v < w$ if $v_k < w_k$ and $w < v$ if $w_k < v_k$.
+\end{itemize}
+
+This define the lexicographic order on $L$\\
+
+Let $X$ be a shift space. We call $\mathcal{F} = \mathcal{F}_X = \{w \in \mathcal{L}(\Sigma_{\mathcal{A}}: w \not\in \mathcal{L}(X)\}$ \textbf{the set of forbidden words} of $X$. In other words, $\mathcal{F}_X = \mathcal{L}(\Sigma_{\mathcal{A}}) \setminus \mathcal{L}(X)$.\\
+
+Let $\mathcal{F} \subset \mathcal{L}(\Sigma_{\mathcal{A}})$, we denote by $\overline{\mathcal{F}}$ the set of all words $w \in \mathcal{L}(\Sigma_{\mathcal{A}})$ such that $w$ has a subword that belongs to $\mathcal{F}$. We say that $\mathcal{F} \subset \mathcal{L}(\Sigma_{\mathcal{A}})$ is a forbidden set if $L = \mathcal{L}(\Sigma_{\mathcal{A}}) \setminus \overline{\mathcal{F}}$ is a language. In this case, we write $X_{\mathcal{F}} = X_L$.\\
+
+\textbf{Definition:} We say a shift space $X$ is irreducible if for all $u, v \in \mathcal{L}(X)$ there exists $w \in \mathcal{L}(X)$ such that $uvw \in \mathcal{L}(X)$.\\
+
+\textbf{Definition:} Suppose $X$ is a shift space. We say $X$ is a subshift of finite type if there exists a finite forbidden set $\mathcal{L}$ such that $X = X_{\mathcal{L}}$
+
+\subsection{Higher Block Order}
+
+$d \geq 2$ fixed, $\Sigma_d = \mathcal{A}^{\mathbb{Z}}$, $\mathcal{A} = \{0, \ldots, d-1\}$\\
+
+$X$ shiftspace in $\Sigma_d$. Fix $N \geq 2$ and let $B$ be the set of words of length $N$ in $X$, i.e., $B = \mathcal{L}_N(X)$\\
+
+$B = \{0, \ldots, d'-1\}$ where $d' = |\mathcal{L}_N(X)|$. Define $B_N: X \to B^{\mathbb{Z}}$.\\
+
+$B_N(x)_k = x_kx_{k+1} \cdots x_{k+N-1}$\\
+
+We define $X^{[N]} = B_N(X) \implies B_N$ is surjective.\\
+
+\textbf{Proposition:} $X^{[N]}$ is a shift space.\\
+
+\textbf{Remark:} We shall see that $(X, \sigma)$ and $(X^{[N]}, \sigma)$ are topologically conjugate.\\
+
+We call $X^{[N]}$ a block code of length $N$.\\
+
+\textbf{Remark:} If $u = u_1 \cdots u_N$ and $v = v_1 \cdots v_N$. We say $u$ and $v$ progressively overlap if $v_2 \cdots v_N = u_1 \cdots u_{N-2}$\\
+
+\textbf{Proposition:} Let $X$ be shift space and let $N \in \mathbb{N} \setminus \{1\}$. Then $X^{[N]}$ is a shift space.\\
+
+\textbf{Definition:} A subshift of finite type is $M-$step if it can be described y a forbidden set of words all of which are of length $M+1$.\\
+
+\textbf{Proposition:} If $X$ is a subshift of finite type, then $\exists M \in \mathbb{N}_0$ such that $X$ is $M$-step\\
+
+\textbf{Theorem:} A subshift $X$ is an $M$-step subshift of finite type if and only if whenever $uv, vw \in \mathcal{L}(X)$ and $|v| \geq M$ then $uvw \in \mathcal{L}(X)$\\
+
+\textbf{Theorem:} A shift space $X$ which is conjugate to a subshift of finite type is a subshift of finite type.\\
+
+\textbf{Corollary:} Let $X$ be an $M-$step subshift of finite type. Then $X$ is conjugate to a $1$-step subshift of finite type.
+
+\subsection{Shift Spaces via Graphs}
+
+\textbf{Definition:} A graph $G$ is a finite set $V = V(G)$ of vertices (also called states) together with a finite set of edge $\epsilon = \epsilon(G)$. Each edge $e \in \epsilon(G)$ starts at a vertex $i(e) \in V$ and ends at vertex $t(e) \in V$. There may be multiple edges that have the same starting vertex and terminal vertex. The set of edges is called a multiple set.\\
+
+For a vertex $I \in V$ we denote by $\epsilon_I$ the set of all edges going out from $I$ and by $\epsilon^I$ the set of all edges coming into $I$.\\
+
+An edge $e$ with $i(e) = t(e)$ is called a self loop.\\
+
+\textbf{Definition:} Let $G$ be a graph with vertex set $V$ and edge set $\epsilon$. For vertices $I$ and $J$ in $V$, let $A_{I,J}$ be the number of edges with initial state $I$ and terminal state $J$. Then the adjacency matrix of $G$ is defined by $A = [A_{I,J}] \implies A = A(G)$\\
+
+Let $A$ be $r \times r$ matrix with non-negative integral values. Then the graph $G = G(A) = G_A$ is defined by the vertex set $V(G) = \{1, \ldots r\}$ and $A_{I,J}$ distinct edges starting at $I$ and terminated at $J$. We clearly have $A = A(G_A)$\\
+
+\textbf{Definition:} Let $G = (V, \epsilon)$ be a graph and $A$ its adjacency matrix. The edge shift $X_G$ or $X_A$ is the shift space of the alphabet $\mathcal{A} = \epsilon$ defined by 
+\begin{align*}
+X_G = X_A = \{\xi = (\xi_i)_i \in \epsilon^{\mathbb{Z}}: t(\xi_i) = i(\xi_{i+1})\}
+\end{align*}
+
+The shift map on $X_G$ or $X_A$ is called the edge shift map and is denoted by $\sigma_A$ or $\sigma_G$.\\
+
+$X_G$ is given by the bi-infinite paths on the graph $G$.\\
+
+\textbf{Proposition:} Let $G$ be a graph with adjacency matrix $A$. Then the associated edge shift $X_G = X_A$ is a one-step subshift of finite type.
+
+\subsection{Sofic Shifts}
+
+\textbf{Definition:} A labeled graph $\mathcal{G}$ is a pair $(G, L)$ where $G$ is a graph with edge set $\epsilon$ and $L: \epsilon \to \mathcal{A}$ is a function that assigns to each edge $e$ a label $L(e)$ in a finite alphabet $\mathcal{A}$\\
+
+Suppose $\mathcal{G} = (V, G, L)$ is a labeled graph. If $\xi = \cdots e_{-2}e_{-1}e_0e_1e_1 \cdots$ is a bi-infinite path in $G \iff \xi \in X_G$\\
+
+We define $L_{\infty}(\xi) = \cdots L(e_{-2}) L(e_{-1}) L(e_0) L(e_1) L(e_2) \cdots$\\
+
+We define $X_{\mathcal{G}} = \{x \in \mathcal{A}^{\mathbb{Z}} : x = L_{\infty}(\xi) \text{ for some } \xi \in X_G \}$\\
+
+A subshift $\mathcal{A}^{\mathbb{Z}}$ is called a \textbf{sofic shift} if $X = X_{\mathcal{G}}$ for some labeled graph $\mathcal{G} = (G, L)$. $\mathcal{G}$ is called a representation of $X$.\\
+
+\textbf{Corollary:} Every subshift of finite type is sofic.\\
+
+\textbf{Theorem:} A shift space $Y \subset \mathcal{A}^{\mathbb{Z}}$ is sofic if and only if it is a factor of some subshift of finite type $X$\\
+
+\textbf{Definition:} We say a non-zero transition matrix $A$ is irreducible if for all $i, j \in \{0, \ldots, d-1\}$, there exists $n \in \mathbb{N}$ such that $(A^n)_{i, j} > 0$\\
+
+\textbf{Fact:} $A$ is irreducible if and only if $X_A$ is topologically transitive.\\
+
+\textbf{Theorem:} Let $A \neq 0$ be a transition matrix and further assume that $A$ is irreducible. Then $A$ has a positive eigenvector $v_A$ with positive eigenvalue $\lambda_A$. Further, $\lambda_A$ is algebraically and geometrically simple. If $\mu$ is any other eigenvalue of $A$ then $|\mu| \leq \lambda_A$. Any positive eigenvector is a positive multiple of $v_A$.\\
+
+\textbf{Corollary:} Let $A$ be a transition matrix of a topologically transitive subshift of finite type $X_A$. Then $h(X_A) = \log \lambda_A$, where $\lambda_A$ is the eigenvalue of $A$ described above.
+
+\end{document}

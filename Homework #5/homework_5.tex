@@ -46,7 +46,7 @@
 
 \begin{document}
 
-\title{Dynamical Systems: Homework 4}
+\title{Dynamical Systems: Homework 5}
 
 \author{Chris Hayduk}
 \date{November 17, 2020}
@@ -56,11 +56,31 @@
 \begin{problem}{1}
 \end{problem}
 
+Let $F_f$ be the Fatou set of $f: C \to C$, a polynomial with degree $d \geq 2$.
+
 \begin{problem}{2}
 \end{problem}
 
+Fix $w \in W^s(z)$. We know that,
+\begin{align*}
+| f^n(z) - f^n(w) | \to 0 \text{ as } n \to \infty
+\end{align*}
+
+That is, for every $\epsilon > 0$, there exists a natural number $N$ such that for all $n > N$, we have that,
+\begin{align*}
+| f^n(z) - f^n(w) | < \epsilon
+\end{align*}
+
+Let $\epsilon' < \epsilon/2$ and fix $w' \neq w \in B(w, \epsilon')$. Then, by the continuity of polynomials, we have
+\begin{align*}
+|f^n(z) - f^n(w)| &= |f^n(z) - f^n(w') + f^n(w') - f^n(w')|\\
+&\leq |f^n(z) - f^n(w')| + |f^n(w') - f^n(w')|
+\end{align*}
+
 \begin{problem}{3}
 \end{problem}
+
+We have that $f'(z) = 2z$. Hence, $\lim_{z \to \infty} f'(z) = \infty$. Since $f(2)$ is a fixed point, we have $f^n(z) \to \infty$ for $z > 2$. Now for $z < -2$, we have that $f(z) > 2$. Hence, $f^n(z) \to \infty$ for $z < 2$ as well. Thus, the basin of attraction for $\infty$ is $W^s(\infty) = \overline{\mathbb{C}} \setminus [-2, 2]$
 
 \begin{problem}{4}
 \end{problem}
